@@ -1,7 +1,124 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sun</groupId>
+	<groupId>com.wang</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+
+	<properties>
+		<!-- 公共工具 -->
+		<slf4j.version>1.7.5</slf4j.version><!-- 日志 -->
+		<log4j.version>1.2.17</log4j.version>
+		<junit.version>4.12</junit.version><!-- 测试 -->
+	</properties>
+
+	<dependencies>
+		<!-- 日志 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- 测试 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- ****************************** 文件编码检测：cpdetector ****************************** -->
+		<!-- 注意兼容性，因2010年已停止维护，当时的jdk还是1.6 -->
+		<!-- 通过 http://mvnrepository.com/artifact/net.sourceforge.cpdetector/cpdetector/1.0.7 （2010-04-21）发现其依赖：antlr、jargs、jchardet -->
+		<!-- 下载 https://sourceforge.net/projects/cpdetector/files/ （2010-06-26） -->
+		<dependency>
+			<groupId>net.sourceforge.cpdetector</groupId>
+			<artifactId>cpdetector</artifactId>
+			<version>1.0.7</version>
+			<scope>system</scope><!-- 在Maven的中央仓库中没有收录的jar包，需要使用本地引入。 -->
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/cpdetector-1.0.7.jar</systemPath>
+		</dependency>
+		<!-- 词法、语法、语义分析工具：https://mvnrepository.com/artifact/antlr/antlr -->
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>2.7.7</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/antlr-2.7.7.jar</systemPath>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.jchardet/jchardet -->
+		<dependency>
+			<groupId>net.sourceforge.jchardet</groupId>
+			<artifactId>jchardet</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jchardet-1.0.jar</systemPath>
+		</dependency>
+		<!-- Java jargs命令行选项解析：https://mvnrepository.com/artifact/net.sourceforge.jargs/jargs -->
+		<dependency>
+			<groupId>net.sourceforge.jargs</groupId>
+			<artifactId>jargs</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jargs-1.0.jar</systemPath>
+		</dependency>
+		
+		<!-- ****************************** 其他 ****************************** -->
+		
+		
+		
+	</dependencies>
+
+	<build>
+		<!-- 配置插件 -->
+		<plugins>
+			<!-- 打包时，scope=system的jar包默认不会打进war包，所以需要通过插件打包。 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+							<includeScope>system</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8004</port>
+					<path>/</path>
+					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
