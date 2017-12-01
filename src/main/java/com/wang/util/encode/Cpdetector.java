@@ -10,6 +10,10 @@ import info.monitorenter.cpdetector.io.JChardetFacade;
 import info.monitorenter.cpdetector.io.ParsingDetector;
 import info.monitorenter.cpdetector.io.UnicodeDetector;
 
+/**
+ * 自动检测文件内容的编码
+ * @author wang
+ */
 public class Cpdetector {
 	private CodepageDetectorProxy detector;
 	
