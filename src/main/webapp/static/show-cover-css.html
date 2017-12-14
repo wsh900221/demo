@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<title>基本页面布局</title>
+		<style type="text/css">
+			ul.fluid.list {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			ul.fluid.list > li {
+				display: inline-block;
+				position: relative;
+				margin: 4px;
+				padding: 4px;
+				padding-bottom: 0px;
+				border: 1px solid #D3D3D3;
+				border-radius: 4px;
+			}
+			ul.fluid.list > li:hover {
+				border: 1px solid #0000FF;
+			}
+
+			ul.fluid.list > li > .content {
+				width: 200px;
+				height: 200px;
+			}
+
+			ul.fluid.list > li > .cover {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0, 0.6);
+				color: #FFF;
+				text-align: center;
+				vertical-align: middle;
+				cursor: default;
+				display: none;
+			}
+			ul.fluid.list > li:hover > .cover {
+				display: block;
+			}
+			ul.fluid.list > li > .cover > .wrapper {
+				position: relative;
+				width: 200px;
+				height: 200px;
+				margin-top: 4px;
+				margin-left: 4px;
+			}
+			ul.fluid.list > li > .cover > .wrapper > .desc {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				text-align: center;
+				height: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul class="fluid list">
+			<li>
+				<img class="content" src="http://www.gdpivot.com:8080/upload/images/20150701/20150701040859512.png" />
+				<div class="cover">
+					<div class="wrapper">
+						<div class="desc">
+							这是一段文字描述
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<img class="content" src="http://www.gdpivot.com:8080/upload/images/20150701/20150701040859512.png" />
+				<div class="cover">
+					<div class="wrapper">
+						<div class="desc">
+							这是一段文字描述
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<img class="content" src="http://www.gdpivot.com:8080/upload/images/20150701/20150701040859512.png" />
+				<div class="cover">
+					<div class="wrapper">
+						<div class="desc">
+							这是一段文字描述
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<img class="content" src="http://www.gdpivot.com:8080/upload/images/20150701/20150701040859512.png" />
+				<div class="cover">
+					<div class="wrapper">
+						<div class="desc">
+							这是一段文字描述
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<img class="content" src="http://www.gdpivot.com:8080/upload/images/20150701/20150701040859512.png" />
+				<div class="cover">
+					<div class="wrapper">
+						<div class="desc">
+							这是一段文字描述
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+	</body>
+</html>

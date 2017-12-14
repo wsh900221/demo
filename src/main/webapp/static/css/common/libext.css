@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/* 注释方法 */
+
+效果：右上角提示红点，使用方法：
+i {
+	display: block;
+	background: #f00;
+	border-radius: 50%;
+	width: 5px;
+	height: 5px;
+	top: 0px;
+	right: 0px;
+	position: absolute;
+}

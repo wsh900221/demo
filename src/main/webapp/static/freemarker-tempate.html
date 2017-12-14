@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+		<link rel="stylesheet" href="lib/qtip/jquery.qtip.css" />
+		<link rel="stylesheet" href="css/common/basic.css" />
+		<link rel="stylesheet" href="css/libext/jquery.ext.css" />
+
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.rangyinputs.js"></script>
+		<script type="text/javascript" src="lib/qtip/jquery.qtip.js"></script>
+		<script type="text/javascript" src="lib/layer/layer.min.js"></script>
+		<script type="text/javascript" src="lib/layer/extend/layer.ext.js"></script>
+		<script type="text/javascript" src="js/common/laytpl.js"></script>
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<script type="text/javascript" src="js/libext/layer.ext.js"></script>
+		<script type="text/javascript" src="js/libext/jquery.ext.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.superslide.js"></script>
+
+		<title>freemarker模板演示</title>
+
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+		freemarker模板演示
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<div id="tplModel-var-trigger" class="labeled text">
+			<div class="label">
+				模型变量
+			</div>
+			<div class="text">
+				选择插入
+			</div>
+			<div class="dropdown">
+				&nbsp;
+			</div>
+		</div>
+		<ul id="tplModel-var-list" class="popup panel simple-dropdown-menu" style="list-style: none;margin:0;" ></ul>
+
+		&nbsp;&nbsp;&nbsp;
+		<button class="normal button three half wide" onclick="simulateAjaxGetTplModel()">
+			模拟ajax获取模型信息并生成下拉菜单
+		</button>
+		<br/>
+		<br/>
+		模板内容：
+		<br/>
+		<textarea class="full width" style="height:200px;" id="tplContent"></textarea>
+		<br/>
+		<br/>
+		<button class="normal button one wide" onclick="simulateAjaxPriview()">
+			模拟预览
+		</button>
+		<br/>
+		<textarea class="full width" style="height:200px;margin-top:2px;" id="strContent"></textarea>				
+
+
+
+
+		<script type="text/javascript">
+			var __tplModel = {
+				code : "demo.x",
+				name : "演示模型",
+				desc : "",
+				sample : '{"user":{"name":"胡长伟","gender":"男"},"order":{"totalAmount":100,"goodsCount":2,"goodsName":"洗衣机、冰箱"}}',
+				varList : [{
+					id : 122,
+					expr : "${user.name}",
+					desc : "订单用户名"
+				}, {
+					expr : "${order.goodsName}",
+					desc : "订单商品名称"
+				}, {
+					id : 123,
+					expr : "${order.goodsCount}",
+					desc : "订单商品数量"
+				}, {
+					id : 124,
+					expr : "${order.totalAmount}",
+					desc : "订单总金额"
+				}]
+			};
+
+			//把选择的模型变量表达式插入到模板编辑中
+			function insertTplModelVar() {
+				var jqThis = $(this);
+				var jqTextArea = $id("tplContent");
+				//'<#-- ' + jqThis.data("desc") + ' -->'
+				var strToInsert = jqThis.data("expr");
+				//
+				jqTextArea.replaceSelectedText(strToInsert, "select");
+				//
+				jqTplModelVarList.slideUp();
+			}
+
+			//生成模型变量表达式菜单项
+			function renderTplModelVarList(modelInfo) {
+				//获取模板内容
+				var tplHtml = $id("tplVarItemsTemplate").html();
+
+				//生成/编译模板
+				var htmlTpl = laytpl(tplHtml);
+
+				//根据模板和数据生成最终内容
+				var htmlText = htmlTpl.render(modelInfo);
+
+				//使用生成的内容
+				jqTplModelVarList.html(htmlText);
+
+				//设置属性并绑定事件
+				var varList = modelInfo["varList"];
+				jqTplModelVarList.find("li").each(function(idx, dom) {
+					$(dom).data("expr", varList[idx].expr);
+					$(dom).data("desc", varList[idx].desc);
+					$(dom).click(insertTplModelVar);
+				});
+				jqTplModelVarList.on("mouseenter", ">li", function() {
+					$(this).addClass("active");
+				});
+				jqTplModelVarList.on("mouseleave", ">li", function() {
+					$(this).removeClass("active");
+				});
+			}
+
+			//模拟ajax获取模型信息
+			function simulateAjaxGetTplModel(modelCode) {
+				//根据模型code获取模型信息
+				var modelInfo = __tplModel;
+				//
+				renderTplModelVarList(modelInfo);
+			}
+
+			//模拟Ajax到Controller层获取预览结果（预览）
+			function simulateAjaxPriview() {
+				//参照com.rs.common.cms.StringFreeMarkerServiceTest.testAsPreview
+				var templateContent = $id("tplContent").val();
+				var sampleJson = __tplModel.sample;
+				var sampleData = JSON.decode(sampleJson);
+				//转换为js的表达式语法
+				var templateContent = replaceStr(templateContent, "${", "{");
+				var resultContent = templateContent.format(sampleData);
+				//
+				$id("strContent").val(resultContent);
+			}
+
+			var jqTplModelVarList = null;
+			//
+			$(function() {
+
+				jqTplModelVarList = $id("tplModel-var-list");
+				popupProxy = bindToPopup("#tplModel-var-trigger", jqTplModelVarList, null, "left");
+
+				$id("tplContent").val("亲爱的${user.name}，\n\n    您的订单已收到，商品名称：${order.goodsName}，商品数量：${order.goodsCount}，总金额：${order.totalAmount}。\n\n    谢谢您的惠顾！");
+
+			});
+		</script>
+	</body>
+
+	<!-- 模型变量表达式菜单项模板 -->
+	<script type="text/html" id="tplVarItemsTemplate">
+		{{# var varList = d["varList"]; }}
+		{{# for(var i=0, len=varList.length; i<len ; i++) {  }}
+		{{# var varInfo = varList[i]; }}
+		<li class="item">
+		{{varInfo.desc}} <span style="color:#AAAAAA;">{{varInfo.expr}}</span>
+		</li>
+		{{# } }}
+	</script>
+</html>

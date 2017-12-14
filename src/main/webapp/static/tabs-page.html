@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+		<link rel="stylesheet" href="lib/qtip/jquery.qtip.css" />
+		<link rel="stylesheet" href="lib/layout/layout-default.css" />
+		<link rel="stylesheet" href="lib/jqgrid/css/jquery.jqgrid.css">
+		<link rel="stylesheet" href="css/common/basic.css" />
+		<link rel="stylesheet" href="css/libext/jquery.ext.css" />
+
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/qtip/jquery.qtip.js"></script>
+		<script type="text/javascript" src="lib/layout/jquery.layout.js"></script>
+		<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.js"></script>
+		<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/layer/layer.min.js"></script>
+		<script type="text/javascript" src="lib/layer/extend/layer.ext.js"></script>
+		<script type="text/javascript" src="js/common/laytpl.js"></script>
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/libext/layer.ext.js"></script>
+		<script type="text/javascript" src="js/libext/jquery.ext.js"></script>
+		<title>Tabs 页面布局</title>
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body id="rootPanel">
+		<div id="topPanel" class="ui-layout-north" style="padding:4px;">
+			<div class="simple block">
+				<div class="header">
+					<label>查询条件演示</label>
+					<div class="normal group right aligned">
+						<button id="btnSave" class="normal button">
+							保存
+						</button>
+
+						<span class="normal spacer"></span>
+
+						<button id="btnCancel" class="normal button">
+							取消
+						</button>
+					</div>
+				</div>
+				<div class="body">
+					<div class="row">
+						<label class="normal label">会员名称</label>
+						<input id="name" class="normal input two wide" />
+
+						<span class="normal spacer"></span>
+
+						<label class="normal label">会员级别</label>
+						<select class="normal input">
+							<option>铜牌</option><option>金牌</option>
+						</select>
+
+						<div class="normal right aligned group">
+							<span class="normal vt divider"></span>
+							<span class="normal spacer two wide"></span>
+
+							<button id="btnQuery" class="normal button">
+								查询
+							</button>
+						</div>
+					</div>
+					<span class="normal divider"></span>
+					<div class="row">
+						<label class="normal label">会员名称</label>
+						<input id="name" class="normal input two wide" />
+
+						<span class="normal spacer"></span>
+
+						<label class="normal label">会员级别</label>
+						<select class="normal input">
+							<option>铜牌</option><option>金牌</option>
+						</select>
+
+						<span class="normal spacer two wide"></span>
+						<span class="normal vt divider"></span>
+						<span class="normal spacer two wide"></span>
+
+						<button id="btnQuery" class="normal button">
+							查询
+						</button>
+					</div>
+					<span class="normal divider"></span>
+				</div>
+			</div>
+		</div>
+		<div id="mainPanel" class="ui-layout-center" style="padding:0px;">
+			<div id="theTabsCtrl" class="noBorder">
+				<ul>
+					<li>
+						<a href="#tabs-1">First</a>
+					</li>
+					<li>
+						<a href="#tabs-2">Second</a>
+					</li>
+					<li>
+						<a href="#tabs-3">Third</a>
+					</li>
+
+					<div class="normal group right aligned">
+						<button id="btnSave" class="normal button">
+							保存
+						</button>
+						<span class="normal spacer"></span>
+						<button id="btnCancel" class="normal button">
+							取消
+						</button>
+					</div>
+				</ul>
+				<div id="tabs-1">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Lorem ipsum dolor sit
+					<br/>
+					amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				</div>
+				<div id="tabs-2">
+					<!-- {{{ -->
+
+					<div class="simple block">
+						<div class="header">
+							<label>查询条件演示</label>
+							<div class="normal group right aligned">
+								<button id="btnSave" class="normal button">
+									保存
+								</button>
+
+								<span class="normal spacer"></span>
+
+								<button id="btnCancel" class="normal button">
+									取消
+								</button>
+							</div>
+						</div>
+						<div class="body">
+							<div class="row">
+								<label class="normal label">会员名称</label>
+								<input id="name" class="normal input two wide" />
+
+								<span class="normal spacer"></span>
+
+								<label class="normal label">会员级别</label>
+								<select class="normal input">
+									<option>铜牌</option><option>金牌</option>
+								</select>
+
+								<span class="normal spacer two wide"></span>
+								<span class="normal vt divider"></span>
+								<span class="normal spacer two wide"></span>
+
+								<button id="btnQuery" class="normal button">
+									查询
+								</button>
+							</div>
+							<div class="row">
+								<label class="normal label">会员名称</label>
+								<input id="name" class="normal input two wide" />
+
+								<span class="normal spacer"></span>
+
+								<label class="normal label">会员级别</label>
+								<select class="normal input">
+									<option>铜牌</option><option>金牌</option>
+								</select>
+
+								<span class="normal spacer two wide"></span>
+								<span class="normal vt divider"></span>
+								<span class="normal spacer two wide"></span>
+
+								<button id="btnQuery" class="normal button">
+									查询
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="simple block">
+						<div class="header">
+							<label>查询条件演示</label>
+							<div class="normal group right aligned">
+								<button id="btnSave" class="normal button">
+									保存
+								</button>
+
+								<span class="normal spacer"></span>
+
+								<button id="btnCancel" class="normal button">
+									取消
+								</button>
+							</div>
+						</div>
+						<div class="body">
+							<div class="row">
+								<label class="normal label">会员名称</label>
+								<input id="name" class="normal input two wide" />
+
+								<span class="normal spacer"></span>
+
+								<label class="normal label">会员级别</label>
+								<select class="normal input">
+									<option>铜牌</option><option>金牌</option>
+								</select>
+
+								<span class="normal spacer two wide"></span>
+								<span class="normal vt divider"></span>
+								<span class="normal spacer two wide"></span>
+
+								<button id="btnQuery" class="normal button">
+									查询
+								</button>
+							</div>
+							<div class="row">
+								<label class="normal label">会员名称</label>
+								<input id="name" class="normal input two wide" />
+
+								<span class="normal spacer"></span>
+
+								<label class="normal label">会员级别</label>
+								<select class="normal input">
+									<option>铜牌</option><option>金牌</option>
+								</select>
+
+								<span class="normal spacer two wide"></span>
+								<span class="normal vt divider"></span>
+								<span class="normal spacer two wide"></span>
+
+								<button id="btnQuery" class="normal button">
+									查询
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- }}}} -->
+				</div>
+				<div id="tabs-3">
+					<br/>
+					a
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<div style="width:100%;height:200px;background-color: gray;overflow-y: scroll;">
+						<br/>
+						绑定示例：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div id="specItem-1" class="labeled text">
+							<div class="label">
+								颜色
+							</div>
+							<div class="text">
+								未选择
+							</div>
+							<div class="dropdown">
+								&nbsp;
+							</div>
+						</div>
+						&nbsp;&nbsp;&nbsp;
+						<div id="specItem-2" class="labeled text">
+							<div class="label">
+								尺寸
+							</div>
+							<div class="text">
+								未选择
+							</div>
+							<div class="dropdown">
+								&nbsp;
+							</div>
+						</div>
+
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						一般菜单：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div id="dropdownMenu" class="dropdown menu trigger">
+							选择国家
+						</div>
+
+						<br/>
+						<br/>
+						<br/>
+						上下文菜单：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在页面上到处点击右键试一试
+						<br/>
+						<br/>
+						<br/>
+						<textarea style="width:99%;height:100px;"></textarea>
+						<br/>
+						<div id="specItemPopup-1" class="popup panel" style="position:absolute; width: 500px; height:240px;background-color: green;display:none;">
+							<input id="11" type="radio" class="vt align" name="meansOfBuy" />
+							<label class="vt align" for="11">非合约机</label>
+							<input id="12" type="radio" class="vt align" name="meansOfBuy" />
+							<label class="vt align" for="12">非合约机</label>
+						</div>
+						<div id="specItemPopup-2" class="popup panel" style="position:absolute; width: 540px; height:200px;background-color: yellow;display:none;">
+							aaaaaaaaaaaaa
+							<br/>
+							bbbbbbbbbbbb
+							<br/>
+							cccccccccccc
+							<br/>
+							dddddddddddddddd
+							<br/>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var jqTabsCtrl;
+			//调整控件大小
+			function adjustCtrlsSize(winWidth, winHeight) {
+				var jqMainPanel = $id("mainPanel");
+				var mainWidth = jqMainPanel.width();
+				var mainHeight = jqMainPanel.height();
+				console.log("mainWidth:" + mainWidth + ", " + "mainHeight:" + mainHeight);
+				//
+
+				var tabsCtrlWidth = mainWidth - 4;
+				var tabsCtrlHeight = mainHeight - 8;
+				jqTabsCtrl.width(tabsCtrlWidth);
+				var tabsHeaderHeight = $(">[role=tablist]", jqTabsCtrl).height();
+				var tabsPanels = $(">[role=tabpanel]", jqTabsCtrl);
+				tabsPanels.width(tabsCtrlWidth - 4 * 2);
+				tabsPanels.height(tabsCtrlHeight - tabsHeaderHeight - 30);
+			}
+
+			//
+			$(function() {
+				//页面基本布局
+				$id('rootPanel').layout({
+					spacing_open : 1,
+					spacing_closed : 1,
+					north__size : 140,
+					allowTopResize : false
+				});
+				hideLayoutTogglers();
+				//隐藏布局north分割线
+				$(".ui-layout-resizer.ui-layout-resizer-north").css("height", "0");
+				//
+				//绑定下拉
+				bindToPopup("#specItem-1", "#specItemPopup-1");
+				bindToPopup("#specItem-2", "#specItemPopup-2");
+				//一般下拉菜单
+				var dropdownMenu = new DropdownMenu().init("dropdownMenu", null, 130);
+				dropdownMenu.setMenuItems([{
+					text : "中国",
+					value : "CN"
+				}, {
+					text : "美国",
+					value : "USA"
+				}, {
+					text : "俄罗斯",
+					value : "RSA"
+				}, {
+					text : "日本",
+					value : "JPA"
+				}]);
+				dropdownMenu.setMenuItemClickHandler(function(data, text) {
+					console.log(text);
+					//Toast.show(data.text +" : "+ data.value, 2000);
+				});
+
+				//
+				jqTabsCtrl = $("#theTabsCtrl").tabs({
+				});
+				//
+				winSizeMonitor.start(adjustCtrlsSize);
+			});
+		</script>
+	</body>
+</html>

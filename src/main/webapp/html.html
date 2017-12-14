@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html 元素查看</title>
+</head>
+<body>
+	<fieldset>
+		<legend>HTML、CSS、JS 注释方式</legend>
+		<ul>
+			<li>HTML 注释：&lt;!-- HTML 注释 --&gt;。使用 < 和 > 是符合HTML标签语法规则的。</li>
+			<li>CSS 注释：/* CSS 注释代码块 */。“/”也可以用书写成实体：&frasl;</li>
+			<li>CSS 注释：// CSS 注释单行</li>
+			<li>JS 注释：/* JS 注释代码块 */</li>
+			<li>JS 注释：// JS注释单行</li>
+		</ul>
+	</fieldset>
+	
+	<fieldset>
+		<legend>HTML 6级标题效果</legend>
+		<h1>标题1效果</h1>
+		<h2>标题2效果</h2>
+		<h3>标题3效果</h3>
+		<h4>标题4效果</h4>
+		<h5>标题5效果</h5>
+		<h6>标题6效果</h6>
+	</fieldset>
+
+	<span>换行效果：&lt;br&gt;（下一行另起一行）</span>
+	<br>
+	<span>分隔线效果：&lt;hr&gt;</span>
+	<hr>
+	
+
+	<form>
+		<span>fieldset作用：将表单内的相关元素分组；<a href="http://www.w3school.com.cn/tags/tag_fieldset.asp">W3school</a></span>
+		<fieldset>
+			<legend>健康信息</legend>
+			
+			<!-- br、label、input 标签放在 form 内，格式化会被挤压在一行显示；放在 form 外，格式化会单独显示一行。所以可放在外面格式化后移到里面，移动后，尽量别再直接格式化了。 -->
+			<span>使用for效果：点击“身高：”可以聚焦对应 input 框</span>
+			<label for="height">身高：</label>
+			<input type="text" id="height" />
+
+			<span>不使用for效果：点击“体重：”无法聚焦对应 input 框</span>
+			<label>体重：</label>
+			<input type="text" />
+		</fieldset>
+
+	</form>
+
+
+
+
+	<br>
+	<br>
+	<span>label 标签的 for 属性</span>
+	<label></label>
+
+
+	<ul>
+		<li><a href="http://127.0.0.1:8080/static/basic-page.html">basic-page.html</a></li>
+
+	</ul>
+</body>
+</html>

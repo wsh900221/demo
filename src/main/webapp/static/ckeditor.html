@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+		<link rel="stylesheet" href="lib/qtip/jquery.qtip.css" />
+		<link rel="stylesheet" href="lib/layout/layout-default.css" />
+		<link rel="stylesheet" href="lib/jqgrid/css/jquery.jqgrid.css">
+		<link rel="stylesheet" href="css/common/basic.css" />
+		<link rel="stylesheet" href="css/libext/jquery.ext.css" />
+		<link rel="stylesheet" href="css/app.css" />
+
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/qtip/jquery.qtip.js"></script>
+		<script type="text/javascript" src="lib/layout/jquery.layout.js"></script>
+		<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.js"></script>
+		<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/layer/layer.min.js"></script>
+		<script type="text/javascript" src="lib/layer/extend/layer.ext.js"></script>
+		<script type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="js/common/laytpl.js"></script>
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/libext/layer.ext.js"></script>
+		<script type="text/javascript" src="js/libext/jquery.ext.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<!-- 文件、内容相关  Javascript -->
+		<script type="text/javascript" src="lib/upload/js/jquery.iframe-transport.js"></script>
+		<script type="text/javascript" src="lib/upload/js/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="lib/upload/js/jquery.xdr-transport.js"></script>
+		<script type="text/javascript" src="lib/upload/js/jquery.fileupload.ext.js"></script>
+
+		<title>基本页面布局</title>
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body id="rootPanel">
+		<div id="topPanel" class="ui-layout-north" style="padding:4px;text-align: center">
+			<div style="line-height: 80px;">
+				图片对话框 + CKEditor 示例
+			</div>
+		</div>
+		<div id="mainPanel" class="ui-layout-center" style="padding:0px;">
+			<textarea id="demo-editor" >
+			</textarea>
+		</div>
+		<script type="text/javascript">
+			function getAppUrl(url) {
+				//
+				return url;
+			}
+
+			//示例 - 图片结果列表
+			var sampleImageFetchResultFileList = [{
+				id : 1,
+				x : "aa",
+				fileBrowseUrl : "http://img30.360buyimg.com/jgsq-productsoa/jfs/t1387/152/408192668/101762/39008297/558144b8Nff8b4294.jpg"
+			}, {
+				id : 2,
+				y : "bb",
+				fileBrowseUrl : "http://img30.360buyimg.com/jgsq-productsoa/jfs/t1306/82/508702445/42012/112e0e37/558144c9Nc3bd25a3.jpg"
+			}, {
+				id : 3,
+				z : true,
+				fileBrowseUrl : "http://img30.360buyimg.com/jgsq-productsoa/jfs/t1555/316/400161511/47847/bb2e076a/558144ccN333cfde7.jpg"
+			}, {
+				id : 4,
+				fileBrowseUrl : "http://img30.360buyimg.com/jgsq-productsoa/jfs/t976/1/1110824130/48916/9d0b878e/558144cfNc3cf4972.jpg"
+			}, {
+				id : 5,
+				fileBrowseUrl : "http://img30.360buyimg.com/jgsq-productsoa/jfs/t1252/162/1191549875/65315/635ffdfc/558144d2Nce571530.jpg"
+			}, {
+				id : 6,
+				fileBrowseUrl : "http://img30.360buyimg.com/jgsq-productsoa/jfs/t1051/260/1071006954/40171/1a5f3864/558144d5N5e0dca42.jpg"
+			}];
+		</script>
+
+		<script type="text/javascript">
+			//相对路径的解析基础
+			CKEDITOR.config.handlers = CKEDITOR.config.handlers || {};
+			//
+			var theEditor = null;
+			//调整控件大小
+			function adjustCtrlsSize(winWidth, winHeight) {
+				var jqMainPanel = $id("mainPanel");
+				var mainWidth = jqMainPanel.width();
+				var mainHeight = jqMainPanel.height();
+				console.log("mainWidth:" + mainWidth + ", " + "mainHeight:" + mainHeight);
+				//
+				var editorWidth = mainWidth - 2;
+				var editorHeight = mainHeight - 2;
+				theEditor.resize(editorWidth, editorHeight);
+			}
+
+			//----------------------------------------------------------------------------
+
+			//处理上传了的文件
+			function handleUploadedFiles(fileInfoList) {
+				alert("handleUploadedFiles");
+				console.log(fileInfoList);
+			}
+
+			//把选择的商品介绍图片插入到editor中
+			function getAndInsertGoodsIntroImages(imageDlg) {
+				var imageItems = imageDlg.getSelected() || [];
+				if (isArray(imageItems)) {
+					//多选结果
+					for (var i = 0; i < imageItems.length; i++) {
+						var imageItem = imageItems[i];
+						console.log(imageItem);
+						var imageHtmlTpl = '<img src="{0}" /><br />';
+						theEditor.insertHtml(imageHtmlTpl.format(imageItem["fileBrowseUrl"]));
+					}
+				} else {
+					//单选结果
+					var imageItem = imageItems;
+					console.log(imageItem);
+					var imageHtmlTpl = '<img src="{0}" /><br />';
+					theEditor.insertHtml(imageHtmlTpl.format(imageItem["fileBrowseUrl"]));
+				}
+			}
+
+			//处理删除意图
+			function toDeleteGoodsIntroImage(imageDlg, imageItem) {
+				//如果想要删除，直接返回true，然后在删除操作结束时调用 imageDlg.refresh();
+				console.log("您要删除的图片是：" + JSON.encode(imageItem));
+				//模拟删除操作处理后刷新对话框
+				setTimeout(function() {
+					imageDlg.refresh();
+				}, 2000);
+
+				//
+				return true;
+			}
+
+			//图片选择对话框
+			var repoImageDlg = RepoImageDlg.newOne();
+
+			//示例 - 对话框配置参数
+			var sampleDlgConfig = {
+				title : "选择商品介绍图片",
+				//singleSelect : true,
+				//width : 940,
+				//height : 600,
+				//imageWidth : 200,
+				//imageHeight : 160,
+				//图片获取
+				fetchUrl : "/demo/goods/image/intro/get",
+				fetchParams : {
+					goodsId : 123
+				},
+				//图片上传
+				uploadUrl : "/file/upload",
+				uploadParams : {
+					usage : "image.goods",
+					subUsage : "intro",
+					goodsId : 123
+				},
+				uploadCallback : handleUploadedFiles,
+				//删除回调
+				deleteHanlder : toDeleteGoodsIntroImage,
+				//确定回调
+				okClickHandler : getAndInsertGoodsIntroImages
+			};
+
+			//显示图片选择对话框
+			function openRepoImageDlg(editor) {
+				var dlgConfig = sampleDlgConfig;
+				//
+				repoImageDlg.show(dlgConfig);
+			}
+
+			//
+			$(function() {
+				//页面基本布局
+				$id('rootPanel').layout({
+					spacing_open : 1,
+					spacing_closed : 1,
+					north__size : 110,
+					allowTopResize : false
+				});
+				//
+				theEditor = CKEDITOR.replace('demo-editor', {
+					extraPlugins : 'imagex'
+				});
+				//插件事件回调函数
+				CKEDITOR.config.handlers['imagex'] = openRepoImageDlg;
+				//
+				winSizeMonitor.start(adjustCtrlsSize);
+			});
+		</script>
+	</body>
+</html>

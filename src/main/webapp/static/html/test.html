@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo 测试数据</title>
+<script type="text/javascript" src="./../lib/jquery/jquery.js"></script>
+
+<script type="text/javascript" src="./../js/util/dateUtil.js"></script>
+</head>
+<body>
+	<h3><a href="http://127.0.0.1:8080">demo工程首页</a></h3>
+
+	<div>
+		<form action="">
+			<span>测试数据</span><br>
+			<input type="text" id="test" />
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+	$(function(){
+		console.info($("#test").val());
+		
+		var d = new Date();
+		d = new Date('2017-12-12');
+		console.info(getWeekName(d));
+		console.info(isLeapYear('2012'));
+	})
+	</script>
+</body>
+</html>

@@ -128,6 +128,7 @@ public class StringImpl {
 			m_detector.add(new ParsingDetector(true));
 			m_detector.add(JChardetFacade.getInstance());
 			m_detector.add(ASCIIDetector.getInstance());
+			// 字节数越多，判定越准确，当然时间也花得越长。
 			charset = m_detector.detectCodepage(inputStream, 3);
 			if (charset != null) {
 				return charset.name();

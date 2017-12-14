@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+		<link rel="stylesheet" href="lib/qtip/jquery.qtip.css" />
+		<link rel="stylesheet" href="css/common/basic.css" />
+		<link rel="stylesheet" href="css/libext/jquery.ext.css" />
+		<link rel="stylesheet" href="../static/css/app.css" />
+
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/qtip/jquery.qtip.js"></script>
+		<script type="text/javascript" src="lib/layer/layer.min.js"></script>
+		<script type="text/javascript" src="lib/layer/extend/layer.ext.js"></script>
+		<script type="text/javascript" src="js/common/laytpl.js"></script>
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<script type="text/javascript" src="js/libext/layer.ext.js"></script>
+		<script type="text/javascript" src="js/libext/jquery.ext.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.superslide.js"></script>
+		<script type="text/javascript" src="../static/js/app.js"></script>
+
+		<title>绑定弹出块演示</title>
+
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+		<br/>
+		a
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div style="width:100%;height:200px;background-color: gray;overflow-y: scroll;">
+			<br/>
+			绑定示例：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div id="specItem-1" class="labeled text">
+				<div class="label">
+					颜色
+				</div>
+				<div class="text">
+					未选择
+				</div>
+				<div class="dropdown">
+					&nbsp;
+				</div>
+			</div>
+			&nbsp;&nbsp;&nbsp;
+			<div id="specItem-2" class="labeled text">
+				<div class="label">
+					尺寸
+				</div>
+				<div class="text">
+					未选择
+				</div>
+				<div class="dropdown">
+					&nbsp;
+				</div>
+			</div>
+	
+			
+	
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			一般菜单：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div id="dropdownMenu" class="dropdown menu trigger">
+				选择国家
+			</div>
+	
+			<br/>
+			<br/>
+			<br/>
+			上下文菜单：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在页面上到处点击右键试一试
+			<br/>
+			<br/>
+			<br/>
+			<textarea style="width:99%;height:100px;"></textarea>
+			<br/>
+			<div id="specItemPopup-1" class="popup panel" style="position:absolute; width: 500px; height:240px;background-color: green;display:none;">
+				<input id="11" type="radio" class="vt align" name="meansOfBuy" />
+				<label class="vt align" for="11">非合约机</label>
+				<input id="12" type="radio" class="vt align" name="meansOfBuy" />
+				<label class="vt align" for="12">非合约机</label>
+			</div>
+			<div id="specItemPopup-2" class="popup panel" style="position:absolute; width: 540px; height:200px;background-color: yellow;display:none;">
+				aaaaaaaaaaaaa
+				<br/>
+				bbbbbbbbbbbb
+				<br/>
+				cccccccccccc
+				<br/>
+				dddddddddddddddd
+				<br/>
+			</div>
+			
+		</div>
+		
+		<br/>
+		<br/>
+
+		<script type="text/javascript">
+			//根据上下文对象信息(targetInfo)提供不同的菜单项
+			function menuItemDataListProvider(targetInfo) {
+				var retItems = [{
+					text : "红色款默认图片",
+					value : '#F00'
+				}, {
+					text : "绿色款默认图片",
+					value : '#0F0'
+				}, {
+					text : "蓝色款默认图片",
+					value : '#00F'
+				}];
+				//
+				retItems.add({
+					text : "上下文标签：" + targetInfo
+				});
+				//
+				return retItems;
+			}
+			
+			//菜单项html生成（回调）函数
+			function menuItemHtmlRenderer(targetInfo, menuItemData) {
+				var itemTpl = laytpl($id('menuItemTpl').html());
+				return itemTpl.render(menuItemData);
+			}
+
+			function menuItemClickHandler(targetInfo, menuItemData) {
+				console.log(targetInfo + " :: " + JSON.encode(menuItemData));
+			}
+
+			var xyContextMenuInfo = {
+				title : "设置色款默认图片",
+				width : 200,
+				itemDataList : menuItemDataListProvider,
+				itemHtmlRenderer : menuItemHtmlRenderer,
+				itemClickHandler : menuItemClickHandler
+			};
+			$(function() {
+				Toast.show("让我们来看看js模板的使用方式", 5000);
+				//绑定下拉
+				bindToPopup("#specItem-1", "#specItemPopup-1");
+				bindToPopup("#specItem-2", "#specItemPopup-2");
+				//一般下拉菜单
+				var dropdownMenu = new DropdownMenu().init("dropdownMenu", null, 130);
+				dropdownMenu.setMenuItems([{
+					text : "中国",
+					value : "CN"
+				}, {
+					text : "美国",
+					value : "USA"
+				}, {
+					text : "俄罗斯",
+					value : "RSA"
+				}, {
+					text : "日本",
+					value : "JPA"
+				}]);
+				dropdownMenu.setMenuItemClickHandler(function(data, text) {
+					console.log(text);
+					//Toast.show(data.text +" : "+ data.value, 2000);
+				});
+				
+				//上下文菜单
+				var contextMenu = ContextMenu.newOne().init(xyContextMenuInfo);
+				//
+				$(document).on("contextmenu", function(event) {
+					var pageX = event.pageX;
+					var pageY = event.pageY;
+					var targetInfo = event.target.nodeName;
+					contextMenu.show(pageX, pageY, targetInfo);
+					//
+					event.preventDefault();
+				});
+			});
+		</script>
+	</body>
+
+	<script type="text/html" id="menuItemTpl">
+		{{# var itemData = d; }}
+		<li class="item">
+			{{# if(itemData.value) { }}
+			<span style="display:inline-block;width:20px;height:20px;border:1px solid gray; background-color:{{itemData.value}}">&nbsp;</span>
+			{{# } }} 
+			{{itemData.text}}
+		</li>
+	</script>
+</html>

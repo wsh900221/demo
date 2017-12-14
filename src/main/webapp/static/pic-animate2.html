@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Standard Meta -->
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<!-- Vendor Specific -->
+<!-- Set renderer engine for 360 browser -->
+<meta name="renderer" content="webkit">
+
+<!-- Cache Meta -->
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+
+<!-- Style Sheet -->
+<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+<link rel="stylesheet" href="lib/qtip/jquery.qtip.css" />
+<link rel="stylesheet" href="lib/layout/layout-default.css" />
+<link rel="stylesheet" href="lib/jqgrid/css/jquery.jqgrid.css">
+<link rel="stylesheet" href="css/common/basic.css" />
+<link rel="stylesheet" href="css/libext/jquery.ext.css" />
+
+<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+<!-- script here -->
+<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery.locale-cn.js"></script>
+<script type="text/javascript" src="lib/qtip/jquery.qtip.js"></script>
+<script type="text/javascript" src="lib/layout/jquery.layout.js"></script>
+<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.js"></script>
+<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.locale-cn.js"></script>
+<script type="text/javascript" src="lib/layer/layer.min.js"></script>
+<script type="text/javascript" src="lib/layer/extend/layer.ext.js"></script>
+<script type="text/javascript" src="js/common/laytpl.js"></script>
+<script type="text/javascript" src="js/common/common.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/libext/layer.ext.js"></script>
+<script type="text/javascript" src="js/libext/jquery.ext.js"></script>
+
+<title>图片animate效果</title>
+
+<style type="text/css">
+.p_list {
+	position: relative;
+	float: left;
+	width: 700px;
+	height: 443px;
+	padding: 8px;
+	border: #666 1px solid;
+	margin: 10px 8px 20px 8px;
+}
+/*图片最近外框样式*/
+.p_img {
+	width: 700px;
+	height: 435px;
+	margin-bottom: 5px;
+	overflow: hidden;
+}
+/*图片信息样式*/
+.p_alt {
+	display: none;
+}
+/*点击放大样式*/
+.p_big {
+	display: block;
+	width: 90px;
+	height: 23px;
+	background: url(25.jpg);
+	cursor: pointer;
+}
+/*原始图片放大中的关闭按钮*/
+.p_cls {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	display: block;
+	width: 20px;
+	height: 21px;
+	background: url(28.jpg);
+	text-indent: -9999px;
+}
+</style>
+</head>
+
+<body id="rootPanel">
+	<div class="p_list">
+		<img src="tmp-images/ohoopee1.jpg" />
+		<div class="p_alt">
+			<h3>风景一</h3>
+		</div>
+	</div>
+	<div class="p_list">
+		<img src="tmp-images/ohoopee2.jpg" />
+		<div class="p_alt">
+			<h3>风景二</h3>
+		</div>
+	</div>
+	<div class="p_list">
+		<img src="tmp-images/ohoopee3.jpg" />
+		<div class="p_alt">
+			<h3>风景三</h3>
+		</div>
+	</div>
+	<div class="p_list">
+		<img src="tmp-images/ohoopee1.jpg" width="400" height="400" />
+		<div class="p_alt">
+			<h3>风景四</h3>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		//
+		$(function() {
+			var curindex = -1;
+			var intimgl = "-120px";
+			var intimgt = "-120px";
+			//带参数index遍历图片外框div
+			$(".p_list").each(function(index) {
+				var $this = $(this);//获取每个外框的DIV
+				var $img = $this.find("img");//查找其中的图片元素
+				var $info = $this.find(".p_alt");//查找其中图片信息元素
+				var arrpic = {};//定义一个空数组保存初始的长和宽
+				arrpic.imgw = $img.width();
+				arrpic.imgh = $img.height();
+				arrpic.orgw = $this.width();
+				arrpic.orgh = $this.height();
+				$img.css({
+					marginLeft : intimgl,
+					marginTop : intimgt
+				});
+				var $drag = $("<div class='p_img'>").append(
+						$img).prependTo($this);
+				var $open = $(
+						"<a href='javascript:void(0)' class='p_big' title='点击放大'></a>")
+						.appendTo($this);
+				var $clos = $(
+						"<a href='javascript:void(0)' class='p_cls' title='点击关闭'></a>")
+						.appendTo($info);
+				//保存放入元素后的外框DIV的长和宽
+				arrpic.dragw = $drag.width();
+				arrpic.dragh = $drag.height();
+				//放大按钮单击事件
+				$open.click(function() {
+					$this.animate({//外框动画
+						width : arrpic.imgw,
+						height : (arrpic.imgh + 85),//85为图片信息的高度
+						borderWidth : "5"
+					}, 3000);
+					$open.fadeOut();//点击放大链接淡出
+					$(".p_alt", $this).fadeIn();//图片提示信息淡入
+					$drag.animate({//加入图片之后的DIV框动画
+						width : arrpic.imgw,
+						height : arrpic.imgh
+					}, 3000);
+					$img.animate({//以动画的形式自动调整位置
+						marginTop : "0px",
+						marginLeft : "0px"
+					}, 3000);
+					var $f_this = $(".p_list:eq("
+							+ curIndex + ")");
+					var $f_open = $(".p_big:eq("
+							+ curIndex + ")");
+					var $f_drag = $(".p_img:eq("
+							+ curIndex + ")");
+					var $f_larg = $(".p_alt:eq("
+							+ curIndex + ")");
+					var $f_imgs = $("img:eq("
+							+ curIndex + ")");
+					if (curindex != -1) {//如果当前已有放大的图片，自动以动画的形式来关闭该图片
+						cls_click($f_this, $f_open,
+								$f_drag, $f_img,
+								$f_larg);
+					}
+					//重新获取当前放大图片的索引号
+					curindex = index;
+				});
+				//关闭按钮单击事件
+				$clos.click(function() {//以动画的形式缩小当前所点击的图片
+					cls_click($this, $open, $drag, $img, 1);
+					//初始化索引号
+					curindex = -1;
+				});
+				function cls_click(pf, po, pw, pi, blns) {
+					var $strinit;
+					pf.animate({
+						width : arrpic.orgw,
+						height : arrpic.orgh,
+						borderWidth : "1"
+					}, 3000);
+					po.fadeIn();
+					if (blns) {
+						$strinit = $(".p_alt", pf);
+					} else {
+						$strinit = blns;
+					}
+					$strinit.fadeOut();
+					pw.animate({
+						width : arrpic.dragw,
+						height : arrpic.dragh
+					}, 3000);
+					pi.animate({
+						marginTop : intimgt,
+						marginLeft : intimgl
+					}, 3000);
+				}
+			})
+		});
+	</script>
+</body>
+</html>

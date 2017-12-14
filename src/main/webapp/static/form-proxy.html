@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+		<link rel="stylesheet" href="lib/qtip/jquery.qtip.css" />
+		<link rel="stylesheet" href="lib/jquery/jquery.timepicker.css" />
+		<link rel="stylesheet" href="lib/layout/layout-default.css" />
+		<link rel="stylesheet" href="lib/jqgrid/css/jquery.jqgrid.css">
+		<link rel="stylesheet" href="css/common/basic.css" />
+		<link rel="stylesheet" href="css/libext/jquery.ext.css" />
+		<link rel="stylesheet" href="lib/jquery/jquery.datetimepicker.css" />
+
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/qtip/jquery.qtip.js"></script>
+		<script type="text/javascript" src="lib/layout/jquery.layout.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.timepicker.js"></script>
+		<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.js"></script>
+		<script type="text/javascript" src="lib/jqgrid/js/jquery.jqgrid.locale-cn.js"></script>
+		<script type="text/javascript" src="lib/layer/layer.min.js"></script>
+		<script type="text/javascript" src="lib/layer/extend/layer.ext.js"></script>
+		<script type="text/javascript" src="js/common/laytpl.js"></script>
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/libext/layer.ext.js"></script>
+		<script type="text/javascript" src="js/libext/jquery.ext.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.datetimepicker.js"></script>
+
+		<title>表单代理-示例</title>
+
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body id="rootPanel">
+		<table width="100%" border="1">
+			<tr style="background-color: #EEE;height:30px;">
+				<td width="40%">表单</td>
+				<td width="20%">&nbsp;</td>
+				<td width="40%">数据</td>
+			</tr>
+			<tr>
+				<td  style="padding: 10px 4px;">
+				<div class="form">
+					<div class="field row">
+						<label class="field label required">姓名</label>
+						<input class="field value" id="name"/>
+						<span class="normal spacer"></span>
+						<label class="field inline label">昵称</label>
+						<input class="field value" id="nickName" />
+					</div>
+
+					<div class="field row">
+						<label class="field label required">密码</label>
+						<input class="field value" type="password" id="password"/>
+					</div>
+
+					<div class="field row">
+						<label class="field label">性别</label>
+						<div class="field group">
+							<input id="gender-X" type="radio" name="gender" value="X" />
+							<label for="gender-X">保密</label>
+							<input id="gender-M" type="radio" name="gender" value="M" />
+							<label for="gender-M">男</label>
+							<input id="gender-F" type="radio" name="gender" value="F" />
+							<label for="gender-F">女</label>
+						</div>
+					</div>
+
+					<div class="field row">
+						<label class="field label">出生日期</label>
+						<input class="field value" id="birthDate" />
+						<label class="field inline label">时间</label>
+						<input class="field value" id="birthTime" />
+					</div>
+					
+					<div class="field row">
+						<label class=" field label">日期时间</label>
+						<input class="one half wide field value" id="birthDateTime" />
+					</div>
+
+					<div class="field row">
+						<label class="field label">年龄</label>
+						<input class="field value" id="age" />
+					</div>
+
+					<div class="field row">
+						<label class="field label">婚姻状态</label>
+						<div class="field group">
+							<input id="marriaged" type="checkbox"/>
+							已婚
+						</div>
+					</div>
+
+					<div class="field row">
+						<label class="field label">体重</label>
+						<input class="field value" id="weight" />
+						<label id="weightTargetId">公斤</label>
+					</div>
+
+					<div class="field row">
+						<label class="field label required">爱好</label>
+						<div class="field group">
+							<input type="checkbox" name="favor" value="film" />
+							看电影
+							<input type="checkbox" name="favor" value="football" />
+							踢足球
+							<input type="checkbox" name="favor" value="wushu" />
+							<label id="favorTargetId">武术</label>
+						</div>
+					</div>
+
+					<div class="field row">
+						<label class="field label required">国别</label>
+						<select class="field value" id="country" ></select>
+					</div>
+
+					<div class="field row"  style="height:130px;padding-top: 10px;">
+						<label class="field label">爱好颜色</label>
+						<select class="field value" id="colors" multiple="multiple" style="height:100px;">
+							<option value="blue">蓝色</option>
+							<option value="green">绿色</option>
+							<option value="red">红色</option>
+							<option value="yellow">黄色</option>
+						</select>
+					</div>
+
+					<div class="field row"  style="height:130px;">
+						<label class="field label">自我描述</label>
+						<textarea id="desc" class="field value three wide" style="height:100px;">我操，还得写自我描述？</textarea>
+					</div>
+
+				</div></td>
+				<td style="text-align: center;">
+				<button class="normal button" onclick="validateValues();">
+					执行验证
+				</button>
+				<br/>
+				<br/>
+				<button class="normal one half wide button" onclick="hideMessages();">
+					隐藏验证消息
+				</button>
+				<br/>
+				<br/>
+				<br/>
+				<label for="chkIncludeNulls" class="align middle">包含空值</label><div id="chkIncludeNulls" ></div>
+				<br/>
+				<br/>
+				<button class="normal one half wide button" onclick="getValues();" data-role="normal">
+					常规取值 &gt;&gt;
+				</button>
+				<br/>
+				<br/>
+				<button class="normal one half wide button" onclick="setValues();" data-role="normal">
+					&lt;&lt; 常规设值
+				</button>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<button class="normal two wide button" onclick="getValues(true);">
+					取值(by keys) &gt;&gt;
+				</button>
+				<br/>
+				<br/>
+				<button class="normal two wide button" onclick="setValues(true);">
+					&lt;&lt; 设值(by keys)
+				</button>
+				<br/>
+				<br/>
+				<button class="normal two wide button" onclick="excludeField();">
+					去除[出生时间]验证
+				</button>
+				<br/>
+				<br/>
+				<br/>
+				<button class="normal button" onclick="useAttr();">
+					$attr(...)
+				</button>
+				<br/>
+				<br/>
+				<button class="normal two wide button" onclick="submitTest();">
+					快速重复提交
+				</button></td>
+				<td>				<textarea id="curValue" class="full width height"></textarea></td>
+			</tr>
+
+		</table>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<script type="text/javascript">
+			//实例化表单代理
+			var formProxy = FormProxy.newOne();
+			//注册表单控件
+			formProxy.addField({
+				id : "name",
+				required : true,
+				key : "x.y.z"
+			});
+			formProxy.addField({
+				id : "nickName",
+				key : "nick-name",
+				rules : [{
+					rule : function(idOrName, type, rawValue, curData) {
+						if (!isNoB(curData["name"])) {
+							if (isNoB(rawValue)) {
+								return false;
+							}
+						}
+						return true;
+					},
+					message : "昵称不能为空"
+				}]
+			});
+			formProxy.addField("password");
+			formProxy.addField({
+				id : "password",
+				required : true,
+				rules : ["isPwd[true]"]
+			});
+			formProxy.addField("gender");
+			formProxy.addField({
+				id : "birthDate",
+				type : "date",
+				rules : ["isDate", "rangeDate[2015-05-20,2015-08-01]"]
+			});
+			formProxy.addField({
+				id : "birthDateTime",
+				type : "datetime",
+				rules : ["isDate", "rangeDate[2015-01-20,2015-09-01]"]
+			});
+			formProxy.addField({
+				id : "birthTime",
+				rules : ["isTime", "rangeTime[12:00,18:00]"]
+			});
+			formProxy.addField({
+				id : "age",
+				type : "int",
+				rules : ["rangeValue[6,150]"]
+			});
+			formProxy.addField({
+				id : "marriaged",
+				type : "bool"
+			});
+			formProxy.addField({
+				id : "weight",
+				type : "float",
+				rules : ["rangeValue[10,300]"],
+				messageTargetId : "weightTargetId"
+			});
+			formProxy.addField({
+				name : "favor",
+				required : true,
+				messageTargetId : "favorTargetId"
+			});
+			formProxy.addField({
+				id : "country",
+				required : true
+			});
+			formProxy.addField("colors");
+			//复杂示例
+			formProxy.addField({
+				id : "desc",
+				key : "self-desc",
+				get : function(idOrName, type, curData, asRawVal) {
+					//给填入的内容去掉空格，并在前面添加字符串
+					return "大家好！" + $id("desc").val().trim();
+				},
+				set : function(idOrName, type, value) {
+					if (value != null) {
+						//去掉内容前面添加的字符串
+						value = value.trim();
+						if (value.indexOf("大家好！") == 0) {
+							value = value.substring(4);
+						}
+						$id("desc").val(value);
+					} else {
+						$id("desc").val("");
+					}
+				},
+				rules : ["maxLength[100]", {
+					rule : function(idOrName, type, rawValue, curData) {
+						if (rawValue.indexOf("我操") != -1) {
+							return false;
+						}
+						return true;
+					},
+					message : "{(name)}, 注意：描述中不能包含脏话"
+				}]
+			});
+
+			function validateValues() {
+				var vldResult = formProxy.validateAll();
+				if (vldResult) {
+					alert("验证结果：通过");
+				}
+			}
+
+			function hideMessages() {
+				formProxy.hideMessages();
+			}
+
+			function getValues(byKeys) {
+				switchIncludeNulls = SwitchButton.newOne("#chkIncludeNulls");
+				var includeNulls = switchIncludeNulls.isOn();
+				byKeys = byKeys === true;
+				var formData = byKeys ? formProxy.getValues2(includeNulls) : formProxy.getValues(includeNulls);
+				$id("curValue").val(JSON.encode(formData));
+			}
+
+			function setValues(byKeys) {
+				byKeys = byKeys === true;
+				var jsonStr = $id("curValue").val().trim() || "{}";
+				var formData = JSON.decode(jsonStr);
+				byKeys ? formProxy.setValues2(formData) : formProxy.setValues(formData);
+			}
+
+			function excludeField() {
+				formProxy.removeField("birthTime");
+			}
+
+			function useAttr() {
+				var jqDoms = null;
+
+				//<button data-role="normal" ...
+				//jqDoms = $attr("data-role", "normal");
+				//jqDoms = $attr("button[data-role]", "normal");
+				//jqDoms = $attr("button[data-role]", "normal", "#rootPanel");
+
+				jqDoms = $attr("input[name]:checked", "favor");
+
+				alert("选中的爱好数量：" + jqDoms.size());
+			}
+
+			function submitTest() {
+				// 重复（事件）检查类
+				// repeatChecker.isValidFor("my.event.code")
+				// repeatChecker.isValidFor("my.event.code", 500)
+				if (!repeatChecker.isValidFor("my.submit")) {
+					//取消快速重复的事件
+					console.log("无效重复事件");
+					return;
+				}
+				//执行具体动作...
+				console.log("真实提交");
+			}
+
+			//
+			var countryListData = {
+				"items" : [{
+					"value" : "CN",
+					"text" : "中国"
+				}, {
+					"value" : "US",
+					"text" : "美国"
+				}, {
+					"value" : "RA",
+					"text" : "俄罗斯"
+				}, {
+					"value" : "JP",
+					"text" : "日本"
+				}],
+				"unSelectedItem" : {
+					"value" : "",
+					"text" : "- 请选择 -"
+				},
+				"defaultValue" : "RA"
+			};
+
+			var switchIncludeNulls = null;
+			$(function() {
+				//
+				switchIncludeNulls = SwitchButton.newOne("#chkIncludeNulls");
+				switchIncludeNulls.value(123);
+				switchIncludeNulls.onChange(function(isOn, value) {
+					console.log(isOn + " : " + value);
+				});
+				//
+				$id("birthDate").datepicker();
+				//
+				$id("birthDateTime").datetimepicker({
+					lang:'ch',
+					format: 'Y-m-d H:i'
+				});
+				//
+				$id("birthTime").timepicker({
+					forceRoundTime : true,
+					step : 30,
+					disableTimeRanges : [["06:00", "10:00"]]
+				});
+				//
+				loadSelectData("country", countryListData);
+				//
+			});
+		</script>
+	</body>
+</html>

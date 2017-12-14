@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="../static/lib/jquery/jquery-ui.css" />
+		<link rel="stylesheet" href="../static/lib/qtip/jquery.qtip.css" />
+		<link rel="stylesheet" href="../static/css/common/basic.css" />
+		<link rel="stylesheet" href="../static/css/libext/jquery.ext.css" />
+		<link rel="stylesheet" href="../static/lib/colorbox/jquery.colorbox.css" />
+		<link rel="stylesheet" href="../static/css/app.css" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="../static/js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="../static/lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="../static/lib/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="../static/lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="../static/lib/jquery/jquery.locale-cn.js"></script>
+		<script type="text/javascript" src="../static/lib/qtip/jquery.qtip.js"></script>
+		<script type="text/javascript" src="../static/lib/layer/layer.min.js"></script>
+		<script type="text/javascript" src="../static/lib/layer/extend/layer.ext.js"></script>
+		<script type="text/javascript" src="../static/js/common/laytpl.js"></script>
+		<script type="text/javascript" src="../static/js/common/common.js"></script>
+		<script type="text/javascript" src="../static/js/libext/layer.ext.js"></script>
+		<script type="text/javascript" src="../static/js/libext/jquery.ext.js"></script>
+		<script type="text/javascript" src="../static/lib/colorbox/jquery.colorbox-min.js"></script>
+		<script type="text/javascript" src="../static/js/app.js"></script>
+
+		<title>可拖拽排序列表</title>
+
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+		<table style="table-layout: fixed; border-collapse: collapse; width:100%;height:100%;">
+			<tr>
+				<td width="100%" colspan="2"><!-- 横向拖动 hr sortable -->
+				<div style="width:100%;height:240px;border:1px dotted #AAA; border-radius:4px;">
+					<ul class="fluid list middle hr sortable" style="height:195px;"></ul>
+					<div style="height:40px;border-top: 1px solid #DDD;text-align: center;background-color: #EEEEEE;line-height: 38px;">
+						<button class="normal button" data-role="first">
+							&lt;&lt; 头部
+						</button><span class="normal spacer"></span>
+						<button class="normal button" data-role="prev">
+							&lt; 前移
+						</button><span class="normal spacer"></span>
+						<button class="normal button" data-role="next">
+							后移 &gt;
+						</button><span class="normal spacer"></span>
+						<button class="normal button" data-role="last">
+							尾部 &gt;&gt;
+						</button>
+
+						<button class="normal button one half wide" style="float:right;margin-top: 5px;" onclick="removeSelected();">
+							删除选中条目
+						</button>
+						<button class="normal button one half wide" style="float:right;margin-top: 5px;" onclick="echoSelected();">
+							log选中条目
+						</button>
+
+						<button class="normal button one half wide" style="float:right;margin-top: 5px;" onclick="echoAll();">
+							log所有条目
+						</button>
+					</div>
+				</div></td>
+			</tr>
+			<tr>
+				<td width="90%" class="align top left"><!-- xy拖动 vt sortable -->
+				<div style="width:600px;height:600px;border:1px dotted #AAA; border-radius:4px;">
+					<ul class="fluid list middle xy sortable"></ul>
+				</div></td>
+				<td width="300" class="align top right"><!-- 竖向拖动 vt sortable -->
+				<div style="display:inline-block;width:214px;height:600px;border:1px dotted #AAA; border-radius:4px;">
+					<ul class="fluid list middle vt sortable"  style="width:170px;float:left;"></ul>
+					<div style="width:40px;height:600px;border-left: 1px solid #DDD;text-align: center;background-color: #EEEEEE;float:right;padding-top: 4px;">
+						<button class="normal button" data-role="first" style="width:30px;height:80px;">
+							∧∧ 头部
+						</button><span class="normal spacer"></span>
+						<button class="normal button" data-role="prev" style="width:30px;height:80px;">
+							∧ 前移
+						</button><span class="normal spacer"></span>
+						<button class="normal button" data-role="next" style="width:30px;height:80px;">
+							后移 ∨
+						</button><span class="normal spacer"></span>
+						<button class="normal button" data-role="last" style="width:30px;height:80px;">
+							尾部  ∨∨
+						</button>
+					</div>
+				</div></td>
+			</tr>
+
+		</table>
+
+		<script type="text/javascript">
+			var sampleImageList = [{
+				name : "ohoopee1",
+				fileBrowseUrl : "../static/tmp-images/ohoopee1.jpg"
+			}, {
+				name : "ohoopee2",
+				fileBrowseUrl : "../static/tmp-images/ohoopee2.jpg"
+			}, {
+				name : "ohoopee3",
+				fileBrowseUrl : "../static/tmp-images/ohoopee3.jpg"
+			}, {
+				name : "bmw_m1_hood",
+				fileBrowseUrl : "http://www.appelsiini.net/projects/lazyload/img/bmw_m1_hood.jpg"
+			}, {
+				name : "bmw_m1_side",
+				fileBrowseUrl : "http://www.appelsiini.net/projects/lazyload/img/bmw_m1_side.jpg"
+			}, {
+				name : "viper_1",
+				fileBrowseUrl : "http://www.appelsiini.net/projects/lazyload/img/viper_1.jpg"
+			}, {
+				name : "viper_corner",
+				fileBrowseUrl : "http://www.appelsiini.net/projects/lazyload/img/viper_corner.jpg"
+			}, {
+				name : "bmw_m3_gt",
+				fileBrowseUrl : "http://www.appelsiini.net/projects/lazyload/img/bmw_m3_gt.jpg"
+			}, {
+				name : "corvette_pitstop",
+				fileBrowseUrl : "http://www.appelsiini.net/projects/lazyload/img/corvette_pitstop.jpg"
+			}, {
+				name : "559b2e0dNf5d393cc",
+				fileBrowseUrl : "http://img14.360buyimg.com/n5/jfs/t841/334/1387925649/141038/485698fa/559b2e0dNf5d393cc.jpg"
+			}, {
+				name : "54d97c26N96a3f73d",
+				fileBrowseUrl : "http://img14.360buyimg.com/n2/jfs/t901/267/1303308/132242/ad1b77f9/54d97c26N96a3f73d.jpg"
+			}];
+
+			//列表辅助类对象
+			var fluidListHelper = FluidListHelper.newOne();
+
+			//列表项目生成回调函数(itemData => itemHtml)
+			var imageItemTpl = null;
+			function imageItemRenderer(itemData) {
+				if (imageItemTpl == null) {
+					var tmpTplHtml = $id("imageItemTpl").html();
+					imageItemTpl = laytpl(tmpTplHtml);
+				}
+				return imageItemTpl.render(itemData);
+			}
+			//
+			var imageItemTpl2;
+			function imageItemRenderer2(itemData) {
+				if (imageItemTpl2 == null) {
+					var tmpTplHtml = $id("imageItemTpl2").html();
+					imageItemTpl2 = laytpl(tmpTplHtml);
+				}
+				return imageItemTpl2.render(itemData);
+			}
+
+			//所有列表项数据
+			function echoAll() {
+				var allItemsData = fluidListHelper.getAll(hrListSelector);
+				console.log(allItemsData);
+			}
+
+			//处理选中的图片列表
+			function echoSelected() {
+				var selectedItems = fluidListHelper.getSelected(hrListSelector) || null;
+				if (isArray(selectedItems)) {
+					//多选结果
+					for (var i = 0; i < selectedItems.length; i++) {
+						var imageItem = selectedItems[i];
+						console.log(imageItem);
+					}
+				} else {
+					//单选结果
+					var imageItem = selectedItems;
+					console.log(imageItem);
+				}
+			}
+
+			//
+			function removeSelected() {
+				fluidListHelper.removeSelected(hrListSelector);
+			}
+
+			//显示索引位置变化
+			function echoIndexChanges(jqList, indexChanges) {
+				console.log("索引位置变化[" + jqList.selector + "]：" + JSON.encode(indexChanges));
+			}
+
+			//---------------------------------------------------------------
+			//根据上下文对象信息(targetInfo)提供不同的菜单项
+			function menuItemDataListProvider(targetInfo) {
+				var retItems = [{
+					text : "红色款默认图片",
+					value : '#F00'
+				}, {
+					text : "绿色款默认图片",
+					value : '#0F0'
+				}, {
+					text : "蓝色款默认图片",
+					value : '#00F'
+				}];
+				//
+				var item = targetInfo.item;
+				var data = targetInfo.data;
+				//
+				retItems.add({
+					text : "名称：" + data.name
+				});
+				//
+				return retItems;
+			}
+
+			//菜单项html生成（回调）函数
+			function menuItemHtmlRenderer(targetInfo, menuItemData) {
+				var itemTpl = laytpl($id('contextMenuItemTpl').html());
+				return itemTpl.render(menuItemData);
+			}
+
+			function menuItemClickHandler(targetInfo, menuItemData) {
+				//html element
+				var item = targetInfo.item;
+				//bound element data
+				var data = targetInfo.data;
+				//
+				var color = menuItemData.value;
+				if (isHexColor(color)) {
+					var jqItem = $(item);
+					jqItem.siblings().find(">.default.image.marker[for-color='" + color + "']").remove();
+					var jqColorMarker = jqItem.find(">.default.image.marker");
+					jqColorMarker.remove();
+					jqColorMarker = $('<div class="default image marker"></div>').appendTo(jqItem);
+					jqColorMarker.attr("for-color", color);
+					jqColorMarker.css("background-color", color);
+				}
+				//
+				console.log("上下文：" + JSON.encode(targetInfo));
+				console.log("菜单项：" + JSON.encode(menuItemData));
+			}
+
+			var xyContextMenuInfo = {
+				title : "把此图片设置为",
+				width : 200,
+				itemDataList : menuItemDataListProvider,
+				itemHtmlRenderer : menuItemHtmlRenderer,
+				itemClickHandler : menuItemClickHandler
+			};
+			//----------------------------------------------------------------
+			//
+			var hrListSelector = "ul.fluid.list.hr.sortable";
+			var vtListSelector = "ul.fluid.list.vt.sortable";
+			var xyListSelector = "ul.fluid.list.xy.sortable";
+			//
+			$(function() {
+				//--------------------------------------------------------
+				fluidListHelper.asSortable(hrListSelector, 'x', echoIndexChanges);
+				fluidListHelper.asSelectable(hrListSelector);
+				//
+				fluidListHelper.setItems(hrListSelector, sampleImageList, imageItemRenderer);
+				//绑定移位按钮事件
+				$(hrListSelector).next("div").find("button[data-role]").click(function() {
+					var where = $(this).attr("data-role");
+					fluidListHelper.moveSelected(hrListSelector, where, echoIndexChanges);
+				});
+				//--------------------------------------------------------
+				fluidListHelper.asSortable(vtListSelector, 'y', echoIndexChanges);
+				fluidListHelper.asSelectable(vtListSelector);
+				//
+				fluidListHelper.setItems(vtListSelector, sampleImageList, imageItemRenderer);
+				//绑定移位按钮事件
+				$(vtListSelector).next("div").find("button[data-role]").click(function() {
+					var where = $(this).attr("data-role");
+					fluidListHelper.moveSelected(vtListSelector, where, echoIndexChanges);
+				});
+				//--------------------------------------------------------
+				fluidListHelper.asSortable(xyListSelector, 'xy', echoIndexChanges);
+				fluidListHelper.asSelectable(xyListSelector, "single");
+				//
+				fluidListHelper.setItems(xyListSelector, sampleImageList, imageItemRenderer2);
+				//
+				fluidListHelper.setContextMenuInfo(xyListSelector, xyContextMenuInfo);
+				//
+				fluidListHelper.setItemBtnClickHanlder(xyListSelector, function(itemInfo, btnName){
+					console.log(itemInfo);
+					//
+					var itemData = itemInfo.data;
+					var itemDom = itemInfo.item;
+					//
+					if(btnName == "delete"){
+						$(itemDom).fadeOut("fast", function() {
+							$(this).remove();
+						});
+					}
+					else if(btnName == "viewOriginal"){
+						showImageViewBox(itemData["fileBrowseUrl"]);
+					}
+				});
+				//
+				//name : "bmw_m3_gt"
+				var resultItem = fluidListHelper.findItemByData(xyListSelector, function(itemData){
+					return itemData.name == "bmw_m3_gt";
+				});
+				//
+				$(resultItem).css("background-color", "red");
+			});
+		</script>
+	</body>
+	<script type="text/html" id="imageItemTpl">
+		{{# var itemData = d; }}
+		<li>
+		<img class="content" src="{{ itemData.fileBrowseUrl }}"/>
+		<div style="width:130px;height:24px;line-height:24px;text-align: center;cursor:default;">{{itemData.name}}</div>
+		</li>
+	</script>
+	
+	<script type="text/html" id="imageItemTpl2">
+		{{# var itemData = d; }}
+		<li>
+		<img class="content" src="{{ itemData.fileBrowseUrl }}"/>
+		<div style="width:130px;height:24px;line-height:24px;text-align: center;cursor:default;">{{itemData.name}}</div>
+		<div class="action bar">
+			<a name="viewOriginal" style="float:left;margin-left:4px;" href="javascript:;" class="button">查看原图</a>
+			<a name="delete" href="javascript:;" class="button" title="删除">X</a>
+		</div>
+		</li>
+	</script>
+
+	<script type="text/html" id="contextMenuItemTpl">
+		{{# var itemData = d; }}
+		<li class="item">
+		{{# if(itemData.value) { }}
+		<span style="display:inline-block;width:20px;height:20px;line-height:20px;vertical-align:middle; border:1px solid gray; background-color:{{itemData.value}}">&nbsp;</span>
+		{{# } }}
+		{{itemData.text}}
+		</li>
+	</script>
+</html>

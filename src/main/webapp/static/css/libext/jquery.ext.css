@@ -1,0 +1,813 @@
+/* 阴影 --------------------- */
+.boxShadow, .box.shadow {
+	-webkit-box-shadow: #666 2px 2px 10px;
+	-moz-box-shadow: #666 2px 2px 10px;
+	-o-box-shadow: #666 2px 2px 10px;
+	-ms-box-shadow: #666 2px 2px 10px;
+	box-shadow: #666 2px 2px 10px;
+}
+/* 基本页面  ----------------- */
+.hrLeft, .align.left {
+	text-align: left !important;
+}
+.hrRight, .align.right {
+	text-align: right !important;
+}
+.hrCenter, .align.center {
+	text-align: center !important;
+}
+.vtTop, .align.top {
+	vertical-align: top;
+}
+.vtBottom, .align.bottom {
+	vertical-align: bottom;
+}
+.vtMiddle, .align.middle {
+	vertical-align: middle;
+}
+.absCenter, .absMiddle, .align.abs.center, .align.abs.middle {
+	text-align: center;
+	vertical-align: middle;
+}
+.keepSpace, .keep.space {
+	white-space: pre;
+}
+.breakWord, .break.word {
+	word-wrap: break-word;
+}
+.noWrap, .no.wrap {
+	word-wrap: normal;
+	white-space: nowrap;
+}
+.noBorder, .no.border, input.noBorder, input.no.border {
+	border-width: 0px !important;
+}
+.labelColor, .label.color {
+	color: #666666;
+}
+.valueColor, .value.color {
+	color: navy;
+}
+.hintText {
+	color: #C9C9C9;
+}
+.full.width {
+	width: 100%;
+}
+.full.height {
+	height: 100%;
+}
+.autoHeight, .auto.height {
+	white-space: normal !important;
+	height: auto;
+	vertical-align: text-top;
+	padding-top: 2px;
+}
+/* ----------- MsgDlg 专用样式类 -------------*/
+.msg-info-icon {
+	background: url('../../image/icon/msg/icon-info.gif') no-repeat scroll left top;
+}
+.msg-warning-icon {
+	background: url('../../image/icon/msg/icon-warning.gif') no-repeat scroll left top;
+}
+.msg-error-icon {
+	background: url('../../image/icon/msg/icon-error.gif') no-repeat scroll left top;
+}
+.msg-question-icon {
+	background: url('../../image/icon/msg/icon-question.gif') no-repeat scroll left top;
+}
+.msg-wait-icon {
+	background: url('../../image/icon/msg/icon-loading.gif') no-repeat scroll left top;
+}
+/* Toast 提示  --------------- */
+div.toast {
+	position: absolute;
+	z-index: 10000000;
+	padding: 10px;
+	width: auto;
+	min-width: 200px;
+	min-height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 10px;
+	background: #000;
+	background: rgba(0, 0, 0, .7);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+	*background: #000;
+	*filter: alpha(Opacity =  70);
+}
+div.toast > span.content {
+	display: inline-block;
+	color: #FFFFFF;
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+	padding: 2px;
+	padding-top: 40px;
+}
+div.toast > span.info {
+	background-image: url("../../image/icon/toast/info.png");
+}
+div.toast > span.warning {
+	background-image: url("../../image/icon/toast/warning.png");
+}
+div.toast > span.error {
+	background-image: url("../../image/icon/toast/error.png");
+}
+.icon.refresh {
+	background-position: 10px 50%;
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	padding-left: 24px;
+	background-image: url("../../image/icon/widget/refresh.png");
+}
+
+/* 简单下拉菜单 ---------------  */
+.dropdown.trigger {
+	display: inline-block;
+	height: 30px;
+	line-height: 24px;
+	border: 1px solid #BBBBBB;
+	padding: 2px 4px;
+	padding-right: 30px;
+	cursor: pointer;
+	border-radius: 2px;
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	background-image: url("../../image/icon/widget/dropdown-btn.png");
+}
+
+ul.simple-dropdown-menu {
+	background-color: #FFFFFF;
+	list-style: none;
+	padding: 2px;
+	border-radius: 2px;
+}
+ul.simple-dropdown-menu > li.item:first-child {
+	border-top: 0px solid #EEEEEE;
+}
+ul.simple-dropdown-menu > li.item {
+	height: 32px;
+	line-height: 22px;
+	vertical-align: middle;
+	border-top: 1px solid #EEEEEE;
+	width: 99%;
+	padding: 4px;
+	cursor: pointer;
+	word-wrap: normal;
+	white-space: nowrap;
+}
+ul.simple-dropdown-menu > li.divider {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	height: 0em;
+	margin: 4px 4px;
+}
+ul.simple-dropdown-menu > li.item.active {
+	background-color: #FFE9D2;
+	color: #000;
+	border-radius: 2px;
+}
+/* ---  开关按钮  --- */
+div.switch.button {
+	display: inline-block;
+	border: 1px solid #E9B71E;
+	cursor: pointer;
+	vertical-align: middle;
+	text-align: center;
+	height: 22px;
+	line-height: 22px;
+	border-radius: 11px;
+	width: 40px;
+	background-color: #FFF;
+	display: inline-block;
+	padding: 0;
+}
+div.switch.button > .circle {
+	height: 20px;
+	width: 20px;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 10px;
+	border-width: 0;
+	display: none;
+	color: #FFF;
+}
+div.switch.button.on {
+	border-color: #FFCF3D;
+}
+div.switch.button.off {
+	border-color: #CFCFCF;
+}
+div.switch.button > .on.circle {
+	background-color: #FFCF3D;
+	float: right;
+}
+div.switch.button:disabled, div.switch.button.disabled {
+	background-color: #EBEBEB;
+	border-color: #AFAFAF;
+}
+div.switch.button:disabled > .circle, div.switch.button.disabled > .circle {
+	background-color: #CFCFCF;
+	color: #AFAFAF;
+}
+div.switch.button > .off.circle {
+	background-color: #CFCFCF;
+	float: left;
+}
+div.switch.button.on > .on.circle {
+	display: block;
+}
+div.switch.button.on > .off.circle {
+	display: none;
+}
+div.switch.button.off > .on.circle {
+	display: none;
+}
+div.switch.button.off > .off.circle {
+	display: block;
+}
+/*  --  自由弹出层 --   */
+.labeled.text {
+	display: inline-block;
+	line-height: 24px;
+	height: 30px;
+	border: 1px solid #BBBBBB;
+	padding: 2px 4px;
+	cursor: pointer;
+	border-radius: 2px;
+}
+.labeled.text.disabled, .labeled.text:disabled {
+	cursor: default;
+}
+.labeled.text > .label {
+	display: inline-block;
+	color: #666666;
+	padding-right: 6px;
+}
+.labeled.text > .text {
+	display: inline-block;
+	color: #000;
+}
+.labeled.text > .dropdown {
+	width: 30px;
+	display: inline-block;
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	background-image: url("../../image/icon/widget/dropdown-btn.png");
+}
+.popup.panel {
+	border-radius: 2px;
+	border: 1px solid #BBBBBB;
+	padding: 2px;
+}
+/* 汉字空白(占位)符	 --------------------- */
+span.chs.spaceholder {
+	visibility: hidden;
+}
+span.chs.spaceholder:after, span.chs.spaceholder.one:after {
+	content: '〇';
+}
+span.chs.spaceholder.two:after {
+	content: '〇〇';
+}
+span.chs.spaceholder.three:after {
+	content: '〇〇〇';
+}
+span.chs.spaceholder.four:after {
+	content: '〇〇〇〇';
+}
+span.chs.spaceholder.five:after {
+	content: '〇〇〇〇〇';
+}
+/* jquery-ui overwrite	 ----------------  */
+.ui.header {
+	font-family: Helvetica, "微软雅黑", "宋体", Arial, sans-serif;
+}
+body, label, input, select, textarea, button {
+	font-size: 14px;
+}
+:focus {
+	outline: 0;
+}
+.ui-layout-toggler .content {
+	font-size: 14px;
+}
+
+/* ---------------- jquery layout --------------- */
+.ui-layout-pane, .ui-layout-resizer, .ui-layout-resizer-dragging, .ui-layout-toggler {
+	border-width: 0px;
+}
+/* ---------------- tabs --------------- */
+.ui-tabs {
+	padding: 2px;
+}
+.ui-tabs > .ui-tabs-nav.ui-corner-all {
+	border-radius: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.ui-tabs > .ui-tabs-nav.ui-widget-header {
+	border-width: 0;
+	border-bottom-width: 1px;
+	background: none;
+	margin-bottom: 4px;
+}
+.ui-tabs > .ui-tabs-panel {
+	padding: 4px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+/* ---------------- qtip ---------------- */
+.qtip {
+	max-width: 400px;
+}
+.qtip-normal-color {
+	color: #33333;
+}
+.qtip-error-color {
+	color: #FF0000;
+}
+/* ------------------- jqgrid ------------------ */
+.ui-jqgrid .ui-jqgrid-view, .ui-jqgrid .ui-jqgrid-titlebar, .ui-jqgrid .ui-jqgrid-pager, .ui-jqgrid .loading {
+	font-size: 14px;
+}
+.jqgrid-alter-row > td {
+	background-color: #F6F6F6;
+}
+/* ------------------- 表单 form ------------------ */
+.form {
+}
+.form .caption.row {
+	border-bottom: 1px dotted gray;
+	margin-bottom: 8px;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px;
+}
+.form .action.row {
+	margin-top: 8px;
+	border-top: 1px dotted gray;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	text-align: center;
+}
+.form .field.row {
+	height: 38px;
+	line-height: 38px;
+	vertical-align: middle;
+}
+.form .field.row .field.label {
+	color: #666;
+	text-align: right;
+	padding-right: 6px;
+	width: 80px;
+	display: block;
+	float: left;
+}
+.form .field.row .field.inline.label {
+	text-align: right;
+	width: auto;
+	display: inline-block;
+	float: none;
+}
+.form .field.row .field.label.half.wide {
+	width: 40px;
+}
+.form .field.row .field.label.one.wide {
+	width: 80px;
+}
+.form .field.row .field.label.one.half.wide {
+	width: 120px;
+}
+.form .field.row .field.label.two.wide {
+	width: 160px;
+}
+.form .field.row .field.label.two.half.wide {
+	width: 200px;
+}
+.form .field.row .field.label.three.wide {
+	width: 240px;
+}
+.form .field.row .field.label.three.half.wide {
+	width: 280px;
+}
+.form .field.row .field.value {
+	padding: 1px 2px;
+	text-align: left;
+	width: 120px;
+	height: 28px;
+	border: 1px solid #AAAAAA;
+	border-radius: 4px;
+	color: navy;
+}
+.form .field.row .field.value.half.wide {
+	width: 60px;
+}
+.form .field.row .field.value.one.wide {
+	width: 120px;
+}
+.form .field.row .field.value.one.half.wide {
+	width: 180px;
+}
+.form .field.row .field.value.two.wide {
+	width: 240px;
+}
+.form .field.row .field.value.two.half.wide {
+	width: 300px;
+}
+.form .field.row .field.value.three.wide {
+	width: 360px;
+}
+.form .field.row .field.value.three.half.wide {
+	width: 420px;
+}
+.form .field.row .field.group {
+	display: inline-block;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: middle;
+	color: navy;
+}
+
+/* ------------------- 普通 normal ------------------ */
+input:disabled, select:disabled, textarea:disabled {
+	background-color: #EEEEEE;
+}
+input[type=radio], input[type=checkbox] {
+	width: 15px;
+	height: 15px;
+	vertical-align: middle;
+}
+.input:focus, .field.value:focus, textarea:focus, select:focus {
+	border: 1px solid #0099FF !important;
+	box-shadow: 0 0 4px rgba(0,153,255, 0.5);
+}
+.input:enabled:hover, .field.value:enabled:hover, textarea:enabled:hover, select:enabled:hover {
+	box-shadow: 0 0 4px rgba(0,153,255, 0.5);
+}
+input.button, div.button, button {
+	padding-left: 2px;
+	padding-right: 2px;
+	width: auto;
+}
+input.button:enabled, div.button:enabled, button:enabled {
+	cursor: pointer;
+	background-color: #EFEFEF;
+	color: #333;
+}
+input.button:enabled:hover, div.button:enabled:hover, button:enabled:hover {
+	box-shadow: 0 0 4px rgba(187,187,187, 2);
+}
+input.button:disabled, div.button:disabled, button:disabled {
+	border-style: dotted;
+	cursor: default;
+}
+.label.required:before {
+	content: '* ';
+	color: red;
+}
+.normal.label {
+	color: #666;
+}
+.normal.button {
+	width: 80px;
+	height: 28px;
+	border: 1px solid #AAAAAA;
+	border-radius: 4px;
+}
+.normal.button.half.wide {
+	width: 40px;
+}
+.normal.button.one.wide {
+	width: 80px;
+}
+.normal.button.one.half.wide {
+	width: 120px;
+}
+.normal.button.two.wide {
+	width: 160px;
+}
+.normal.button.two.half.wide {
+	width: 200px;
+}
+.normal.button.three.wide {
+	width: 240px;
+}
+.normal.button.three.half.wide {
+	width: 280px;
+}
+.normal.input {
+	padding: 1px 2px;
+	width: 120px;
+	height: 26px;
+	border: 1px solid #AAAAAA;
+	border-radius: 4px;
+	color: navy;
+}
+.normal.input.half.wide {
+	width: 60px;
+}
+.normal.input.one.wide {
+	width: 120px;
+}
+.normal.input.one.half.wide {
+	width: 180px;
+}
+.normal.input.two.wide {
+	width: 240px;
+}
+.normal.input.two.half.wide {
+	width: 300px;
+}
+.normal.input.three.wide {
+	width: 360px;
+}
+.normal.input.three.half.wide {
+	width: 420px;
+}
+.normal.group {
+	display: inline-block;
+	height: 100%;
+}
+.normal.group.left.aligned {
+	float: left;
+}
+.normal.group.right.aligned {
+	float: right;
+}
+.normal.spacer {
+	width: 20px;
+	display: inline-block;
+}
+.normal.spacer.one.wide {
+	width: 20px;
+}
+.normal.spacer.two.wide {
+	width: 40px;
+}
+.normal.spacer.three.wide {
+	width: 60px;
+}
+
+.normal.divider, .normal.hr.divider {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: #EEEEEE;
+}
+.normal.vt.divider {
+	display: inline-block;
+	width: 1px;
+	height: 60%;
+	background-color: #EEEEEE;
+	vertical-align: middle;
+	margin: 0 14px;
+}
+
+/* ------------------- 简单块  simple block > header, simple block > body, simple block > body > row ------------------ */
+.simple.block {
+	display: block;
+	width: 100%;
+	padding: 4px 0;
+	border-width: 0;
+	border-radius: 4px;
+}
+.simple.block .row {
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: middle;
+}
+.simple.block > .header {
+	padding-left: 4px;
+	padding-right: 4px;
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: bottom;
+	background-color: #E6E6E6;
+	font-weight: bold;
+}
+.simple.block > .body {
+	padding-left: 4px;
+	padding-right: 4px;
+	width: 100%;
+}
+
+/* ------------------- 查询过滤调条件 filter ------------------ */
+.filter.section {
+	display: block;
+	width: 100%;
+	padding: 4px 0;
+	border-width: 0;
+	border-radius: 4px;
+}
+.filter.section.bordered {
+	padding: 4px;
+	border: 1px solid #EEEEEE;
+}
+.filter.section .divider, .filter.section .hr.divider {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: #EEEEEE;
+}
+.filter.section .vt.divider {
+	display: inline-block;
+	width: 1px;
+	height: 60%;
+	background-color: #EEEEEE;
+	vertical-align: middle;
+	margin: 0 14px;
+}
+.filter.section .filter.row {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	vertical-align: middle;
+}
+.filter.section .filter.row .spacer {
+	width: 20px;
+	display: inline-block;
+}
+.filter.section .filter.row .spacer.one.wide {
+	width: 20px;
+}
+.filter.section .filter.row .spacer.two.wide {
+	width: 40px;
+}
+.filter.section .filter.row .spacer.three.wide {
+	width: 60px;
+}
+.filter.section .filter.row .group {
+	display: inline-block;
+	height: 100%;
+}
+.filter.section .filter.row .group.left.aligned {
+	float: left;
+}
+.filter.section .filter.row .group.right.aligned {
+	float: right;
+}
+.filter.section .filter.row .label {
+	color: #666;
+}
+.filter.section .filter.row .input {
+	padding: 1px 2px;
+	width: 120px;
+	height: 26px;
+	border: 1px solid #AAAAAA;
+	border-radius: 4px;
+	color: navy;
+}
+.filter.section .filter.row .input.half.wide {
+	width: 60px;
+}
+.filter.section .filter.row .input.one.wide {
+	width: 120px;
+}
+.filter.section .filter.row .input.one.half.wide {
+	width: 180px;
+}
+.filter.section .filter.row .input.two.wide {
+	width: 240px;
+}
+.filter.section .filter.row .input.two.half.wide {
+	width: 300px;
+}
+.filter.section .filter.row .input.three.wide {
+	width: 360px;
+}
+.filter.section .filter.row .input.three.half.wide {
+	width: 420px;
+}
+.filter.section .filter.row .button {
+	width: 80px;
+	height: 28px;
+	border: 1px solid #AAAAAA;
+	border-radius: 4px;
+}
+.filter.section .filter.row .button.half.wide {
+	width: 40px;
+}
+.filter.section .filter.row .button.one.wide {
+	width: 80px;
+}
+.filter.section .filter.row .button.one.half.wide {
+	width: 120px;
+}
+.filter.section .filter.row .button.two.wide {
+	width: 160px;
+}
+.filter.section .filter.row .button.two.half.wide {
+	width: 200px;
+}
+.filter.section .filter.row .button.three.wide {
+	width: 240px;
+}
+.filter.section .filter.row .button.three.half.wide {
+	width: 280px;
+}
+
+/* ------------ 上传的文件列表  -------------- */
+.file.list {
+	border: 1px solid gray;
+	list-style: none;
+	padding: 2px;
+}
+.file.list > li {
+	height: 30px;
+	line-height: 24px;
+	vertical-align: middle;
+	border: 1px solid #FFF;
+	width: 100%;
+	padding: 4px;
+	word-wrap: normal;
+}
+.file.list > li.file.item {
+	border-top: 1px dotted gray;
+}
+.file.list > li.text.item {
+	background-color: #FEF1EC;
+}
+.file.list > li.text.item > .text {
+	text-align: center;
+	margin-right: 80px;
+}
+.file.list > li.text.item > .icon {
+	width: 60px;
+	padding: 10px;
+	float: right;
+	margin-top: -24px;
+	cursor: pointer;
+}
+.file.list > li.text.item > .icon.close {
+	background: url('../../image/icon/msg/icon-close.gif') no-repeat scroll center center;
+	background-size: 20px;
+}
+.file.list > li.file.item {
+	border-top: 1px dotted gray;
+}
+.file.list > li.file.item > div {
+	line-height: 24px;
+	cursor: default;
+}
+.file.list > li.file.item > .icon {
+	width: 40px;
+	padding: 10px;
+	float: left;
+}
+.file.list > li.file.item > .name {
+	color: navy;
+	margin: 0 80px 0 30px;
+	vertical-align: middle;
+}
+.file.list > li.file.item > .actions {
+	margin-top: -24px;
+	float: right;
+	width: 70px;
+	text-align: right;
+}
+.file.list > li.file.item > .actions > button {
+	border: 1px solid gray;
+	width: 60px;
+	border-radius: 4px;
+}
+.file.list > li.file.item.info > .icon {
+	background: url('../../image/icon/msg/icon-info.gif') no-repeat scroll left center;
+	background-size: 20px;
+}
+.file.list > li.file.item.info > .name {
+	color: navy;
+}
+.file.list > li.file.item.info > .actions > button.delete {
+	visibility: visible;
+}
+.file.list > li.file.item.warning > .icon {
+	background: url('../../image/icon/msg/icon-warning.gif') no-repeat scroll left center;
+	background-size: 20px;
+}
+.file.list > li.file.item.warning > .name {
+	color: brown;
+}
+.file.list > li.file.item.warning > .actions > button.delete {
+	visibility: hidden;
+}
+.file.list > li.file.item.error > .icon {
+	background: url('../../image/icon/msg/icon-error.gif') no-repeat scroll left center;
+	background-size: 20px;
+	background-clip: padding-box;
+}
+.file.list > li.file.item.error > .name {
+	color: red;
+}
+.file.list > li.file.item.error > .actions > button.delete {
+	visibility: hidden;
+}

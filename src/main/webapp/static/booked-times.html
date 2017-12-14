@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Standard Meta -->
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+		<!-- Vendor Specific -->
+		<!-- Set renderer engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- Cache Meta -->
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Style Sheet -->
+		<link rel="stylesheet" href="../static/css/common/basic.css" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="../static/js/html5/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- script here -->
+		<script type="text/javascript" src="../static/lib/jquery/jquery.js"></script>
+		<script type="text/javascript" src="../static/lib/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="../static/lib/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="../static/js/common/laytpl.js"></script>
+		<script type="text/javascript" src="../static/js/common/common.js"></script>
+		<script type="text/javascript" src="../static/js/libext/jquery.ext.js"></script>
+		<title>已占用预定时间</title>
+		<style type="text/css">
+			.bookedTimes {
+				table-layout: fixed;
+				width: 883px;
+				border-collapse: separate;
+				border-spacing: 1px;
+				background-color: #D0D0D0;
+			}
+			.bookedTimes td {
+				background-color: #FFF;
+				text-align: center;
+				height: 30px;
+				vertical-align: middle;
+				cursor: default;
+			}
+			.bookedTimes td.dateName {
+				background-color: #E6E6E6;
+				color: #000;
+				font-weight: bold;
+				width: 100px;
+			}
+			.bookedTimes td.dateXX {
+				height: 20px;
+				background-color: #E6E6E6;
+			}
+			.bookedTimes td.dateAM, .bookedTimes td.datePM {
+				background-color: #E6E6E6;
+				width: 60px;
+				color: #333;
+			}
+			.bookedTimes td.dateTimes {
+				color: #000;
+				width: 720px;
+			}
+			.bookedTimes td.dateTimes > .hours-wrapper {
+				width: 720px;
+				height: 30px;
+				position: relative;
+				text-align: left;
+			}
+			.hours-wrapper > .hour {
+				position: relative;
+				display: inline-block;
+				width: 60px;
+				height: 30px;
+				border-right: 1px solid #D0D0D0;
+				float: left;
+				text-align: center;
+				line-height: 30px;
+				background-color: #8BC377;
+			}
+			.hours-wrapper > .hour > .indicator {
+				display: inline-block;
+				position: absolute;
+				right: -8px;
+				top: -24px;
+				color: gray;
+				font-family: "courier new";
+			}
+			.hours-wrapper > .hour.odd {
+				
+			}
+			.hours-wrapper > .hour.even {
+
+			}
+			.hours-wrapper > .booked {
+				display: inline-block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 30px;
+				background: rgba(200, 30, 30, 0.5);
+			}
+		</style>
+	</head>
+
+	<body >
+		<br/>
+		<br/>
+		<br/>
+		<div style="margin: auto;text-align: center;font-size: 20px;">已占用预定时间</div>
+		<br/>
+		<br/>
+		<div id="bookedTimesWrapper" style="margin:auto;width:910px;height:800px;overflow-y: auto;border:1px dotted gray;">
+			<table id="bookedTimes" class="bookedTimes"> </table>
+		</div>
+
+		<script type="text/javascript">
+			// data-hour="2015-08-12 04:00"
+			function adjustCtrlsPosition(winWith, winHeight) {
+				centerInView("centerCtrl", "refCtrl");
+			}
+
+			
+			//示例数据
+			var __bookedTimes = [{
+				from : "2015-08-12 04:00",
+				to : "2015-08-12 06:15"
+			}, {
+				from : "2015-08-12 10:00",
+				to : "2015-08-12 13:30"
+			}, {
+				from : "2015-08-14 11:25",
+				to : "2015-08-15 3:00"
+			}, {
+				from : "2015-08-15 11:45",
+				to : "2015-08-16 21:00"
+			}];
+
+			//ajax请求
+			function toFetchBookedTimes(carId, fromDate, toDate) {
+				//ajax 获取指定车辆、日期范围内的被预定的小时
+				var bookedTimes = __bookedTimes;
+				renderBookedTimes(fromDate, toDate, bookedTimes);
+			}
+
+			function calcBookedTime(hour) {
+				var dateName = hour.format("yyyy-MM-dd");
+				var hours = hour.getHours();
+				var minutes = hour.getMinutes();
+				var retInfo = {
+					dateName : dateName,
+					phase : hours < 12 ? "AM" : "PM",
+					minutes : (hours < 12 ? hours : (hours - 12)) * 60 + minutes
+				};
+				return retInfo;
+			}
+
+			function renderBookedTimes(fromDate, toDate, bookedTimes) {
+				bookedTimes = bookedTimes || [];
+				//
+				for (var i = 0, len = bookedTimes.length; i < len; i++) {
+					var hoursPair = bookedTimes[i];
+					var dateFrom = Date.parseAsDate(hoursPair.from);
+					var dateTo = Date.parseAsDate(hoursPair.to);
+					if (dateFrom > dateTo) {
+						hoursPair.from = dateTo;
+						hoursPair.to = dateFrom;
+					} else {
+						hoursPair.from = dateFrom;
+						hoursPair.to = dateTo;
+					}
+				}
+				//
+				var minDate = Date.parseAsDate(fromDate);
+				var maxDate = Date.parseAsDate(toDate);
+				if(minDate > maxDate){
+					var tmpDate = minDate;
+					minDate = maxDate;
+					maxDate = tmpDate;
+				}
+				minDate.setHours(0);
+				minDate.setMinutes(0);
+				minDate.setSeconds(0);
+				maxDate.setHours(0);
+				maxDate.setMinutes(0);
+				maxDate.setSeconds(0);
+				//
+				var dateNames = [];
+				do {
+					dateNames.add(minDate.format('yyyy-MM-dd'));
+					minDate = minDate.addDays(1);
+				} while(minDate <= maxDate);
+				//获取模板内容
+				var tplHtml = $id("bookedDateHoursTpl").html();
+				//生成/编译模板
+				var htmlTpl = laytpl(tplHtml);
+				//根据模板和数据生成最终内容
+				console.log(dateNames);
+
+				var htmlText = htmlTpl.render(dateNames);
+				//
+				$id("bookedTimes").html(htmlText);
+				//$id('AM-2015-08-12').find("> td.dateTimes > div.hours-wrapper")
+				//$id('PM-2015-08-12').find("> td.dateTimes > div.hours-wrapper")
+				for (var i = 0; i < bookedTimes.length; i++) {
+					var hoursPair = bookedTimes[i];
+					//
+					var dateFrom = Date.parseAsDate(hoursPair.from);
+					var dateTo = Date.parseAsDate(hoursPair.to);
+					var fromInfo = calcBookedTime(dateFrom);
+					var toInfo = calcBookedTime(dateTo);
+					var fromDateName = fromInfo.dateName;
+					var fromPhase = fromInfo.phase;
+					var fromMinutes = fromInfo.minutes;
+					var toDateName = toInfo.dateName;
+					var toPhase = toInfo.phase;
+					var toMinutes = toInfo.minutes;
+					if(fromDateName == toDateName){
+						if(fromPhase == toPhase){
+							var jqTarget = $id(fromPhase + '-' + fromDateName).find("> td.dateTimes > div.hours-wrapper");
+							var jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", fromMinutes);
+							jqBooked.css("width", toMinutes - fromMinutes);
+						}
+						else {
+							var jqTarget = $id(fromPhase + '-' + fromDateName).find("> td.dateTimes > div.hours-wrapper");
+							var jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", fromMinutes);
+							jqBooked.css("width", 720 - fromMinutes);
+							//
+							jqTarget = $id(toPhase + '-' + fromDateName).find("> td.dateTimes > div.hours-wrapper");
+							jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", toMinutes);
+						}
+					}
+					else {
+						if(fromPhase == "AM"){
+							var jqTarget = $id('AM' + '-' + fromDateName).find("> td.dateTimes > div.hours-wrapper");
+							var jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", fromMinutes);
+							jqBooked.css("width", 720 - fromMinutes);
+							//
+							jqTarget = $id('PM' + '-' + fromDateName).find("> td.dateTimes > div.hours-wrapper");
+							jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", 720);
+						}
+						else {
+							var jqTarget = $id('PM' + '-' + fromDateName).find("> td.dateTimes > div.hours-wrapper");
+							var jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", fromMinutes);
+							jqBooked.css("width", 720 - fromMinutes);
+						}
+						//
+						var xDate = Date.parseAsDate(fromDateName).addDays(1);
+						var xDateName = xDate.format('yyyy-MM-dd');
+						while(xDateName < toDateName){
+							jqTarget = $id('AM' + '-' + xDateName).find("> td.dateTimes > div.hours-wrapper");
+							jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", 720);
+							//
+							jqTarget = $id('PM' + '-' + xDateName).find("> td.dateTimes > div.hours-wrapper");
+							jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", 720);
+							//
+							xDate = xDate.addDays(1);
+							xDateName = xDate.format('yyyy-MM-dd');
+						}
+						//
+						if(toPhase == "AM"){
+							var jqTarget = $id('AM' + '-' + toDateName).find("> td.dateTimes > div.hours-wrapper");
+							var jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", toMinutes);
+						}
+						else {
+							var jqTarget = $id('AM' + '-' + toDateName).find("> td.dateTimes > div.hours-wrapper");
+							var jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", 720);
+							//
+							jqTarget = $id('PM' + '-' + toDateName).find("> td.dateTimes > div.hours-wrapper");
+							jqBooked = $($('<div class="booked"></div>').appendTo(jqTarget));
+							jqBooked.css("left", 0);
+							jqBooked.css("width", toMinutes);
+						}
+					}
+					//
+					console.log("-----------------------------");
+					console.log(fromInfo);
+					console.log(toInfo);
+				}
+			}
+
+			//
+			$(function() {
+				//
+				toFetchBookedTimes(111, '2015-08-11', '2015-08-17');
+			});
+		</script>
+	</body>
+
+	<script type="text/html" id="bookedDateHoursTpl" >
+		{{# var dateNames = d; }}
+		{{# for(var i=0, len = dateNames.length ; i < len ; i++) { }}
+		{{# var dateName = dateNames[i]; }}
+		<tr>
+			<td class="dateName" rowspan="4">{{dateName}}</td>
+			<td class="dateAM" rowspan="2">上 午</td>
+			<td class="dateXX" colspan="12" >&nbsp;</td>
+		</tr>
+		<tr id="AM-{{dateName}}">
+			<td class="dateTimes">
+				<div class="hours-wrapper">
+					<div class="hour odd"><div class="indicator">01</div></div>
+					<div class="hour even"><div class="indicator">02</div></div>
+					<div class="hour odd"><div class="indicator">03</div></div>
+					<div class="hour even"><div class="indicator">04</div></div>
+					<div class="hour odd"><div class="indicator">05</div></div>
+					<div class="hour even"><div class="indicator">06</div></div>
+					<div class="hour odd"><div class="indicator">07</div></div>
+					<div class="hour even"><div class="indicator">08</div></div>
+					<div class="hour odd"><div class="indicator">09</div></div>
+					<div class="hour even"><div class="indicator">10</div></div>
+					<div class="hour odd"><div class="indicator">11</div></div>
+					<div class="hour even"><div class="indicator">12</div></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="datePM" rowspan="2">下 午</td>
+			<td class="dateXX" colspan="12" >&nbsp;</td>
+		</tr>
+		<tr id="PM-{{dateName}}">
+			<td class="dateTimes">
+				<div class="hours-wrapper">
+					<div class="hour odd"><div class="indicator">13</div></div>
+					<div class="hour even"><div class="indicator">14</div></div>
+					<div class="hour odd"><div class="indicator">15</div></div>
+					<div class="hour even"><div class="indicator">16</div></div>
+					<div class="hour odd"><div class="indicator">17</div></div>
+					<div class="hour even"><div class="indicator">18</div></div>
+					<div class="hour odd"><div class="indicator">19</div></div>
+					<div class="hour even"><div class="indicator">20</div></div>
+					<div class="hour odd"><div class="indicator">21</div></div>
+					<div class="hour even"><div class="indicator">22</div></div>
+					<div class="hour odd"><div class="indicator">23</div></div>
+					<div class="hour even"><div class="indicator">24</div></div>
+				</div>
+			</td>
+		</tr>
+		{{# } }}
+	</script>
+</html>

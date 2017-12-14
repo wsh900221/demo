@@ -1,0 +1,29 @@
+/* 基本字体、box样式    */
+*, html {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html, body, p, div, span, a, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, label, input, select, option, optgroup, button, textarea, blockquote, table, thead, tbody, tfoot, tr, th, td, header, footer, nav, section, article, aside, details, figcaption, figure, hgroup, main, summary {
+	font-family: Helvetica, "微软雅黑", "宋体", Verdana, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+fieldset {
+	border: 1px solid #AAAAAA;
+	padding: 10px;
+	border-radius: 4px;
+}
+legend {
+	height: 20px;
+	line-height: 20px;
+	padding-left: 4px;
+	padding-right: 4px;
+	margin-left: -4px;
+}
