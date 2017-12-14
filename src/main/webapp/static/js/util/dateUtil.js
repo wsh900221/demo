@@ -3,7 +3,41 @@
 // +---------------------------------------------------
 // 空白字符
 var pattern_blank = /(^\s+|\s+$)/g;
-var pattern_date = /[\d]{4,4}[-\/]{1}[\d]{1,2}[-\/]{1}[\d]{1,2}/g;// 匹配常见的日期分隔符：“-”“/”
+var pattern_date = /\d{4}[-\/]{1}\d{1,2}[-\/]{1}\d{1,2}/g;// 匹配日期类型"yyyy-MM-dd"
+var pattern_datetime = /^\d{4}[-\/]{1}\d{1,2}[-\/]{1}\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$/;// 匹配时间戳类型"yyyy-MM-dd HH:mm:ss"
+var pattern_sep = /[-\/ :]/;// 匹配常见的日期分隔符：“-”“/”“ ”“:”
+
+/**
+ * 是否有效日期格式
+ * @param dateStr 支持"yyyy-MM-dd"、"yyyy-MM-dd HH:mm:ss"两种格式（分隔符可以是：“-”“/”）
+ * @returns 1、YYYY-MM/DD(2003-3/21)也是合法日期，数据库会自动转换为YYYY-MM-DD格式；2、虽然语法承认2017-13-14，但这里检查时仍判断为用户非法输入的日期；
+ */
+function isValidDate(dateStr) {
+	if (!dateStr) {
+		return false;
+	}
+	
+	// 使用Date的构造器检查日期是否合法
+	var date = new Date(dateStr);
+	if (isNaN(date)) {
+	    return false;
+    }
+	
+	// 过滤某些字段超出其取值范围的，如"2017-13-14"
+	var dateArray = dateStr.split(pattern_sep);
+	if (pattern_date.test(dateStr)) {
+		if (dateArray[0] != date.getFullYear() || dateArray[1] != date.getMonth() + 1 || dateArray[2] != date.getDate()) {
+	        return false;
+        }
+		return true;
+    } else if (pattern_datetime.test(dateStr)){
+    	if (dateArray[0] != date.getFullYear() || dateArray[1] != date.getMonth() + 1 || dateArray[2] != date.getDate() || dateArray[3] != date.getHours() || dateArray[4] != date.getMinutes() || dateArray[5] != date.getSeconds()) {
+	        return false;
+        }
+		return true;
+    }
+	return false;
+}
 
 // ---------------------------------------------------
 // 日期格式化
@@ -46,8 +80,11 @@ Date.prototype.Format = function(formatStr) {
  * @returns
  */
 function getWeekName(date) {
-	var d = new Date();
-	d.setTime(date);
+	if (!date || !isValidDate(date)) {
+	    return "日期输入有误";
+    }
+	
+	var d = new Date(date);
 	var arr = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
 	return arr[d.getDay()];
 }
@@ -102,95 +139,37 @@ Date.prototype.DateAdd = function(strInterval, Number) {
 // | 比较日期差 dtEnd 格式为日期型或者 有效日期格式字符串
 // +---------------------------------------------------
 Date.prototype.DateDiff = function(strInterval, dtEnd) {
-    var dtStart = this;
-    if (typeof dtEnd == 'string' )// 如果是字符串转换为日期型
-    {
-        dtEnd = StringToDate(dtEnd);
-    }
-    switch (strInterval) {
-        case 's' :return parseInt((dtEnd - dtStart) / 1000);
-        case 'n' :return parseInt((dtEnd - dtStart) / 60000);
-        case 'h' :return parseInt((dtEnd - dtStart) / 3600000);
-        case 'd' :return parseInt((dtEnd - dtStart) / 86400000);
-        case 'w' :return parseInt((dtEnd - dtStart) / (86400000 * 7));
-        case 'm' :return (dtEnd.getMonth()+1)+((dtEnd.getFullYear()-dtStart.getFullYear())*12) - (dtStart.getMonth()+1);
-        case 'y' :return dtEnd.getFullYear() - dtStart.getFullYear();
-    }
+	var dtStart = this;
+	// 如果是字符串转换为日期型
+	if (typeof dtEnd == 'string') {
+		dtEnd = stringToDate(dtEnd);
+	}
+	switch (strInterval) {
+		case 's': return parseInt((dtEnd - dtStart) / 1000);
+		case 'n': return parseInt((dtEnd - dtStart) / 60000);
+		case 'h': return parseInt((dtEnd - dtStart) / 3600000);
+		case 'd': return parseInt((dtEnd - dtStart) / 86400000);
+		case 'w': return parseInt((dtEnd - dtStart) / (86400000 * 7));
+		case 'm': return (dtEnd.getMonth() + 1) + ((dtEnd.getFullYear() - dtStart.getFullYear()) * 12) - (dtStart.getMonth() + 1);
+		case 'y': return dtEnd.getFullYear() - dtStart.getFullYear();
+	}
 }
 
 // +---------------------------------------------------
 // | 日期输出字符串，重载了系统的toString方法
 // +---------------------------------------------------
-Date.prototype.toString = function(showWeek)
-{
-    var myDate= this;
-    var str = myDate.toLocaleDateString();
-    if (showWeek)
-    {
-        var Week = ['日','一','二','三','四','五','六'];
-        str += ' 星期' + Week[myDate.getDay()];
-    }
-    return str;
-}
-
-// +---------------------------------------------------
-// | 日期合法性验证
-// | 格式为：YYYY-MM-DD或YYYY/MM/DD
-// +---------------------------------------------------
-/**
- * 校验是否有效日期格式<br>
- * 有效格式一：YYYY-(/)MM-(/)DD<br>
- * 有效格式二：YYYY-(/)MM-(/)D<br>
- * 有效格式三：YYYY-(/)M-(/)DD<br>
- * 有效格式四：YYYY-(/)M-(/)D<br>
- * 注：YYYY-MM/DD(2003-3/21)也是合法日期，数据库会自动转换为YYYY-MM-DD格式<br>
- * 
- * @param DateStr 如"2017-12-07 14:54:05"
- * @returns
- */
-function isValidDateFormat(dateStr) {
-	if (dateStr == null) {
-		return false;
+Date.prototype.toString = function(showWeek) {
+	var myDate = this;
+	var str = myDate.toLocaleDateString();
+	if (showWeek) {
+		var Week = ['日', '一', '二', '三', '四', '五', '六'];
+		str += ' 星期' + Week[myDate.getDay()];
 	}
-	
-	dateStr = dateStr.trim();
-	if (pattern_date.test(dateStr)) {
-		// var t = new Date(dateStr.replace(/\/ -/g, '/'));
-		var t = new Date(dateStr);
-		var ar = dateStr.split(/[-\/ :]/);
-		if (ar[0] != t.getYear() || ar[1] != t.getMonth() + 1 || ar[2] != t.getDate()) {
-			// alert('错误的日期格式！格式为：YYYY-MM-DD或YYYY/MM/DD。注意闰年。');
-			return false;
-		}
-	} else {
-		return false;
-	}
-}
-
-// +---------------------------------------------------
-// | 日期时间检查
-// | 格式为：YYYY-MM-DD HH:MM:SS
-// +---------------------------------------------------
-function CheckDateTime(str) {
-	var reg = /^(\d+)-(\d{ 1,2 })-(\d{1,2}) (\d{ 1,2 }):(\d{ 1,2 }):(\d{ 1,2 })$/;
-	var r = str.match(reg);
-	if (r == null)
-		return false;
-	r[2] = r[2] - 1;
-	var d = new Date(r[1], r[2], r[3], r[4], r[5], r[6]);
-	if (d.getFullYear() != r[1])
-		return false;
-	if (d.getMonth() != r[2])
-		return false;
-	if (d.getDate() != r[3])
-		return false;
-	if (d.getHours() != r[4])
-		return false;
-	if (d.getMinutes() != r[5])
-		return false;
-	if (d.getSeconds() != r[6])
-		return false;
-	return true;
+	var h = myDate.getHours() < 10 ? "0" + myDate.getHours() : myDate.getHours();
+	var m = myDate.getMinutes() < 10 ? "0" + myDate.getMinutes() : myDate.getMinutes();
+	var s = myDate.getSeconds() < 10 ? "0" + myDate.getSeconds() : myDate.getSeconds();
+	str += ' ' + h + ':' + m + ':' + s;
+	return str;
 }
 
 // +---------------------------------------------------
@@ -262,7 +241,7 @@ Date.prototype.WeekNumOfYear = function() {
 // | 字符串转成日期类型
 // | 格式 MM/dd/YYYY MM-dd-YYYY YYYY/MM/dd YYYY-MM-dd
 // +---------------------------------------------------
-function StringToDate(DateStr) {
+function stringToDate(DateStr) {
 	var converted = Date.parse(DateStr);
 	var myDate = new Date(converted);
 	if (isNaN(myDate)) {

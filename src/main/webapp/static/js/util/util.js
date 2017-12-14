@@ -9,12 +9,27 @@
 var objectPro = Object.prototype;
 var toString = objectPro.toString;
 
-// 判断v是否未定义数据（包括 undefined 和 null，再外加一个特殊字符串值'null'）
-function isUndef(v) {
-	return typeof v === "undefined" || v == null || v == 'null';
+/**
+ * 判断v是否未定义数据
+ * @param v 未定义值undefined
+ * @returns
+ */
+function isDef(v) {alert("1");
+	return !isUndef(v);
 }
-function isDef(v) {
-	return !isUndef;
+function isUndef(v) {alert("2");
+	return typeof v === "undefined";
+}
+/**
+ * 判断v是否为null（未定义、null、“null”）
+ * @param v 包括 undefined 和 null，再外加一个特殊字符串值"null"
+ * @returns
+ */
+function isNotNull(v) {
+	return !isNull(v);
+}
+function isNull(v) {
+	return isUndef(v) || v == null || v == "null";;
 }
 
 // 判断v是否 Booleano 类型

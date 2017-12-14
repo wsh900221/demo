@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>demo 测试数据</title>
-<script type="text/javascript" src="./../lib/jquery/jquery.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 
-<script type="text/javascript" src="./../js/util/dateUtil.js"></script>
+<script type="text/javascript" src="../js/util/util.js"></script>
+<script type="text/javascript" src="../js/util/dateUtil.js"></script>
 </head>
 <body>
 	<h3><a href="http://127.0.0.1:8080">demo工程首页</a></h3>
@@ -19,13 +20,21 @@
 	
 	<script type="text/javascript">
 	$(function(){
-		console.info($("#test").val());
+		//console.info($("#test").val());
 		
 		var d = new Date();
 		d = new Date('2017-12-12');
-		console.info(getWeekName(d));
-		console.info(isLeapYear('2012'));
+		//console.info(getWeekName(d));
+		//console.info(isLeapYear('2012'));
+		console.info(isUndef(2012));
 	})
+	
+	function isDef(v) {alert("1");
+	return !isUndef(v);
+}
+function isUndef(v) {alert("2");
+	return typeof v === "undefined";
+}
 	</script>
 </body>
 </html>
