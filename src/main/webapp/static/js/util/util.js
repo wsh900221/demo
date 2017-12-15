@@ -1,93 +1,76 @@
-// ******************************************
-// **************               *************
-// ************** JavaScript 工具 *************
-// **************               *************
-// ******************************************
+// JS 工具类（2017-12-14 By Wang Shaohui）
 
-// ***************************************** 基本类型判断 Begin *****************************************
+// 判断JS数据类型
+var toString = Object.prototype.toString;
+var hasOwnProperty = Object.prototype.hasOwnProperty;// 判断对象是否有某属性
 
-var objectPro = Object.prototype;
-var toString = objectPro.toString;
+// 生成偏函数的函数
+var isType = function(type) {
+	return function(obj) {
+		return toString.call(obj) == '[object ' + type + ']';
+	}
+};
+// 生成偏函数，判断JS类型
+var isString = isType('String');
+var isNumber = isType('Number');
+var isBoolean = isType('Boolean');
+var isUndefined = isType('Undefined');
+var isNull = isType('Null');
+var isObject = isType('Object');
+var isArray = isType('Array');
+var isDate = isType('Date');
+var isFunction = isType('Function');
+var isRegExp = isType('RegExp');
+var isError = isType('Error');
 
 /**
- * 判断v是否未定义数据
- * @param v 未定义值undefined
+ * 是否空对象
+ * @param obj
  * @returns
  */
-function isDef(v) {alert("1");
-	return !isUndef(v);
+function isEmptyObject(obj) {
+	// 遍历对象，只要有一个属性就不是空对象
+	var name;
+	for (name in obj) {
+		return false;
+	}
+	return true;
 }
-function isUndef(v) {alert("2");
-	return typeof v === "undefined";
-}
+
 /**
- * 判断v是否为null（未定义、null、“null”）
- * @param v 包括 undefined 和 null，再外加一个特殊字符串值"null"
+ * 对象是否有key属性（直接使用Object.prototype.hasOwnProperty也很方便）
+ * 
+ * @param obj
+ * @param key
  * @returns
  */
-function isNotNull(v) {
-	return !isNull(v);
-}
-function isNull(v) {
-	return isUndef(v) || v == null || v == "null";;
-}
-
-// 判断v是否 Booleano 类型
-function isBool(v) {
-	return v != null && (typeof v == "boolean" || v instanceof Boolean);
-}
-function isTrue(v) {
-	return v === true;
-}
-function isFalse(v) {
-	return v === false;
-}
-
-// 判断v是否原始类型：string、number、boolean 其中的一个
-function isPrimitive(v) {
-	return (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean');
-}
-// 判断v是否对象类型
-function isObject(obj) {
-	return obj !== null && typeof obj === 'object';
-}
-var _toString = Object.prototype.toString;
-/**
- * Check whether the object has the property.
- */
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-function hasOwn(obj, key) {
+function hasProperty(obj, key){
+	if (!isObject(obj) || !key || isEmptyObject(obj)) {
+	    return false;
+    }
+	
+	//return obj.hasOwnProperty(key);
+	// 当对象变态到自己有一个属性命名为“hasOwnProperty”时，就要使用该方法
 	return hasOwnProperty.call(obj, key);
 }
-/**
- * Strict object type check. Only returns true for plain JavaScript objects.
- */
-function isPlainObject(obj) {
-	return _toString.call(obj) === '[object Object]'
-}
-function isRegExp(v) {
-	return _toString.call(v) === '[object RegExp]'
-}
-/**
- * Check if val is a valid array index.
- */
-function isValidArrayIndex(val) {
-	var n = parseFloat(val);
-	return n >= 0 && Math.floor(n) === n && isFinite(val)
-}
 
 /**
- * Convert a value to a string that is actually rendered.
+ * 打印参数内容：如果是对象以JSON
+ * @param v
+ * @returns
  */
-function toString(val) {
-	return val == null ? '' : typeof val === 'object' ? JSON.stringify(val, null, 2) : String(val);
+function toStr(val) {
+	return val == null ? "" : isObject(val) ? JSON.stringify(val, null, 2) : String(val);
 }
+
+
+
 /**
  * Convert a input value to a number for persistence. If the conversion fails, return original string.
  */
 function toNumber(val) {
 	var n = parseFloat(val);
-	return isNaN(n) ? val : n
+	return isNaN(n) ? val : n;
 }
 
 // 数组操作
@@ -98,7 +81,7 @@ function remove(arr, item) {
 	if (arr.length) {
 		var index = arr.indexOf(item);
 		if (index > -1) {
-			return arr.splice(index, 1)
+			return arr.splice(index, 1);
 		}
 	}
 }
@@ -114,10 +97,4 @@ function cached (fn) {
     return hit || (cache[str] = fn(str))
   })
 }
-
-
-
-
-
-// ***************************************** 基本类型判断 End
 
